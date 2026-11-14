@@ -1,7 +1,7 @@
 extends Node2D
 ## Complete one cardinal tile step before stopping or choosing another direction.
-const TILE_SIZE := 32
-@export_range(1.0, 512.0) var speed := 128.0
+const TILE_SIZE := 64
+@export_range(1.0, 512.0) var speed := 256.0
 @onready var visual: Node2D = $Visual
 var _destination := Vector2.ZERO
 var _moving := false

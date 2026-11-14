@@ -20,13 +20,13 @@ text = "Window size"
 [node name="Choice" type="OptionButton" parent="WindowSize"]
 size_flags_horizontal = 3
 item_count = 4
-popup/item_0/text = "1× — 640 × 360"
+popup/item_0/text = "1× — 1280 × 720"
 popup/item_0/id = 0
-popup/item_1/text = "2× — 1280 × 720"
+popup/item_1/text = "2× — 2560 × 1440"
 popup/item_1/id = 1
-popup/item_2/text = "3× — 1920 × 1080"
+popup/item_2/text = "3× — 3840 × 2160"
 popup/item_2/id = 2
-popup/item_3/text = "4× — 2560 × 1440"
+popup/item_3/text = "4× — 5120 × 2880"
 popup/item_3/id = 3
 [node name="Scaling" type="HBoxContainer" parent="."]
 [node name="Label" type="Label" parent="Scaling"]

@@ -1,9 +1,9 @@
 extends Node
-## Presentation only: gameplay coordinates always remain 640 × 360.
+## Owns window presentation around the fixed 1280 × 720 base viewport.
 signal display_changed
 
-const BASE_SIZE := Vector2i(640, 360)
-const DEFAULT_WINDOW_SIZE := BASE_SIZE * 2
+const BASE_SIZE := Vector2i(1280, 720)
+const DEFAULT_WINDOW_SIZE := BASE_SIZE
 const SETTINGS_PATH := "user://display.cfg"
 var _windowed_size := DEFAULT_WINDOW_SIZE
 var _windowed_position := Vector2i.ZERO
@@ -22,7 +22,7 @@ func _configure_viewport() -> void:
 	window.content_scale_size = BASE_SIZE
 	window.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	window.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
-	window.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_INTEGER
+	window.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL
 	window.size_changed.connect(_on_size_changed)
 
 func _restore_settings() -> void:
@@ -94,7 +94,10 @@ func _fit_window_size(size: Vector2i) -> Vector2i:
 		return size.max(BASE_SIZE)
 	var usable := DisplayServer.screen_get_usable_rect(get_window().current_screen)
 	# Leave room for window decorations.
-	return size.max(BASE_SIZE).min((usable.size - Vector2i(32, 64)).max(BASE_SIZE))
+	var available := (usable.size - Vector2i(32, 64)).max(BASE_SIZE)
+	var requested := size.max(BASE_SIZE)
+	var fit := minf(1.0, minf(float(available.x) / requested.x, float(available.y) / requested.y))
+	return Vector2i(Vector2(requested) * fit).max(BASE_SIZE)
 
 func set_fullscreen_scaling(value: int) -> void:
 	fullscreen_scaling = clampi(value, 0, 2)
@@ -105,10 +108,10 @@ func set_fullscreen_scaling(value: int) -> void:
 func _apply_scaling() -> void:
 	var window := get_window()
 	window.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
-	window.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_INTEGER
+	window.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL
 	if is_fullscreen():
-		if fullscreen_scaling != FullscreenScaling.INTEGER:
-			window.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL
+		if fullscreen_scaling == FullscreenScaling.INTEGER:
+			window.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_INTEGER
 		if fullscreen_scaling == FullscreenScaling.STRETCH:
 			window.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_IGNORE
 

@@ -1,5 +1,5 @@
 extends Node2D
-const TILE_SIZE := 32
+const TILE_SIZE := 64
 const EXTENT := 48
 
 func _draw() -> void:

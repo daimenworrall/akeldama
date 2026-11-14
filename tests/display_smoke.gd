@@ -18,11 +18,11 @@ func _run() -> void:
 
 func _test_display_configuration() -> void:
 	var display: DisplayService = root.get_node("DisplayManager")
-	assert(root.content_scale_size == Vector2i(640, 360))
+	assert(root.content_scale_size == Vector2i(1280, 720))
 	assert(root.content_scale_mode == Window.CONTENT_SCALE_MODE_VIEWPORT)
 	assert(root.content_scale_aspect == Window.CONTENT_SCALE_ASPECT_KEEP)
-	assert(root.content_scale_stretch == Window.CONTENT_SCALE_STRETCH_INTEGER)
-	for sample in [[Vector2i(1280, 720), 2], [Vector2i(1920, 1080), 3], [Vector2i(2560, 1440), 4], [Vector2i(3840, 2160), 6], [Vector2i(1280, 800), 2], [Vector2i(1500, 900), 2]]:
+	assert(root.content_scale_stretch == Window.CONTENT_SCALE_STRETCH_FRACTIONAL)
+	for sample in [[Vector2i(1280, 720), 1], [Vector2i(1920, 1080), 1], [Vector2i(2560, 1440), 2], [Vector2i(3840, 2160), 3], [Vector2i(1280, 800), 1], [Vector2i(1500, 900), 1]]:
 		assert(display.integer_scale_for_size(sample[0]) == sample[1])
 
 func _test_camera_tracking(scene: Node, player: PlayerController) -> void:
@@ -49,26 +49,26 @@ func _test_grid_movement(player: PlayerController) -> void:
 	var origin := player.position
 	Input.action_press("move_right")
 	player.advance_movement(0.05)
-	assert(player.position.x > origin.x and player.position.x < origin.x + 32)
+	assert(player.position.x > origin.x and player.position.x < origin.x + 64)
 	Input.action_release("move_right")
 	player.advance_movement(0.5)
-	assert(player.position == origin + Vector2(32, 0), "Tap did not finish exactly one tile")
+	assert(player.position == origin + Vector2(64, 0), "Tap did not finish exactly one tile")
 	origin = player.position
 	Input.action_press("move_right")
 	player.advance_movement(0.125)
 	Input.action_release("move_right")
 	Input.action_press("move_down")
 	player.advance_movement(0.125)
-	assert(player.position == origin + Vector2(32, 0), "Turn happened mid-tile")
+	assert(player.position == origin + Vector2(64, 0), "Turn happened mid-tile")
 	player.advance_movement(0.25)
-	assert(player.position == origin + Vector2(32, 32), "Turn did not begin at the next tile")
+	assert(player.position == origin + Vector2(64, 64), "Turn did not begin at the next tile")
 	Input.action_press("move_right")
 	origin = player.position
 	player.advance_movement(0.25)
-	assert(player.position == origin + Vector2(32, 0), "Diagonal movement occurred")
+	assert(player.position == origin + Vector2(64, 0), "Diagonal movement occurred")
 	Input.action_release("move_down")
 	origin = player.position
 	player.advance_movement(0.5)
-	assert(player.position == origin + Vector2(64, 0), "Held input did not continue across tiles")
+	assert(player.position == origin + Vector2(128, 0), "Held input did not continue across tiles")
 	Input.action_release("move_right")
-	assert(player.position == player.position.snapped(Vector2(32, 32)))
+	assert(player.position == player.position.snapped(Vector2(64, 64)))
