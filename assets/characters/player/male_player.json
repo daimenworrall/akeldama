@@ -1,0 +1,69 @@
+{
+  "character": {
+    "id": "2fa2dd2b-2230-4d57-94aa-29f255eb61a7",
+    "name": "Idle",
+    "prompt": "Human male protagonist for a creature-catching game set during a biblical apocalypse. Classic handheld monster-catching RPG pixel art, with a sombre atmosphere, muted colours, and strong, readable shapes. Short blonde hair, faded red shirt, worn blue trousers, and scuffed brown boots. An ordinary young survivor with a determined expression and a simple, modest outfit. Subtle wear and dust on his clothes. Full body, clearly human anatomy, exactly two arms and two legs. No tail, wings, horns, halo, animal features, extra appendages, weapons, or accessories. Character only, no scenery or background objects.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "spritesheet": {
+    "path": "male_player-Idle.png",
+    "cell_size": {
+      "width": 96,
+      "height": 96
+    },
+    "sheet_size": {
+      "width": 768,
+      "height": 384
+    },
+    "columns": 8,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 6,
+        "animation": "Walking",
+        "animation_group_id": "16e7cadc-5a40-47bf-a7ba-fdf79edc16a7",
+        "direction": "south"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 6,
+        "animation": "Walking",
+        "animation_group_id": "16e7cadc-5a40-47bf-a7ba-fdf79edc16a7",
+        "direction": "east"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 6,
+        "animation": "Walking",
+        "animation_group_id": "16e7cadc-5a40-47bf-a7ba-fdf79edc16a7",
+        "direction": "north"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-14T18:10:35.757756+00:00"
+}

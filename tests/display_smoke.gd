@@ -10,11 +10,23 @@ func _run() -> void:
 	var scene: Node = preload("res://scenes/Main.tscn").instantiate()
 	root.add_child(scene)
 	var player: PlayerController = scene.get_node("World/Player")
+	_test_player_art(player)
 	_test_display_configuration()
 	await _test_camera_tracking(scene, player)
 	_test_grid_movement(player)
 	print("PASS: display configuration, resolution scales, grid taps/turns/held input, pixel alignment, camera settling")
 	quit()
+
+func _test_player_art(player: PlayerController) -> void:
+	var visual = player.get_node("Visual")
+	assert(visual.sprite_frames.get_frame_count(&"walk_south") == 6)
+	var texture: AtlasTexture = visual.sprite_frames.get_frame_texture(&"walk_north", 5)
+	assert(texture.region == Rect2(480, 288, 96, 96))
+	visual.set_movement(Vector2.LEFT, true)
+	assert(visual.animation == &"walk_east" and visual.flip_h)
+	visual.set_movement(Vector2.LEFT, false)
+	assert(visual.animation == &"idle_west" and not visual.flip_h)
+	visual.set_movement(Vector2.DOWN, false)
 
 func _test_display_configuration() -> void:
 	var display: DisplayService = root.get_node("DisplayManager")
@@ -33,6 +45,7 @@ func _test_camera_tracking(scene: Node, player: PlayerController) -> void:
 	for frame in range(30):
 		await physics_frame
 		await process_frame
+		assert(camera.position.distance_to(player.position) <= 12.0, "Camera trails too far behind movement")
 		assert(camera.position == camera.position.round(), "Subpixel camera position")
 		assert(visual.global_position == visual.global_position.round(), "Subpixel artwork position")
 	Input.action_release("move_right")

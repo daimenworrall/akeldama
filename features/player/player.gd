@@ -1,10 +1,12 @@
 extends Node2D
 ## Complete one cardinal tile step before stopping or choosing another direction.
+const PlayerVisual = preload("res://features/player/player_visual.gd")
 const TILE_SIZE := 64
 @export_range(1.0, 512.0) var speed := 256.0
-@onready var visual: Node2D = $Visual
+@onready var visual: PlayerVisual = $Visual
 var _destination := Vector2.ZERO
 var _moving := false
+var _facing := Vector2.DOWN
 
 func _ready() -> void:
 	position = position.snapped(Vector2(TILE_SIZE, TILE_SIZE))
@@ -21,6 +23,7 @@ func advance_movement(delta: float) -> void:
 			var direction := _read_direction()
 			if direction == Vector2.ZERO:
 				break
+			_facing = direction
 			_destination = position + direction * TILE_SIZE
 			_moving = true
 		var distance := position.distance_to(_destination)
@@ -31,6 +34,7 @@ func advance_movement(delta: float) -> void:
 			position = _destination
 			_moving = false
 	visual.global_position = global_position.round()
+	visual.set_movement(_facing, _moving or _read_direction() != Vector2.ZERO)
 
 func _read_direction() -> Vector2:
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
