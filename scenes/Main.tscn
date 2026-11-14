@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://features/world/tile_grid.gd" id="1"]
+[ext_resource type="PackedScene" path="res://features/player/Player.tscn" id="2"]
+[ext_resource type="Script" path="res://core/display/pixel_camera.gd" id="4"]
+
+[ext_resource type="PackedScene" path="res://ui/pause/PauseLayer.tscn" id="5"]
+
+[node name="Main" type="Node2D"]
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="TileGrid" type="Node2D" parent="World"]
+script = ExtResource("1")
+
+[node name="Player" parent="World" instance=ExtResource("2")]
+position = Vector2(96, 96)
+
+[node name="Camera2D" type="Camera2D" parent="World" node_paths=PackedStringArray("target")]
+process_callback = 0
+script = ExtResource("4")
+target = NodePath("../Player")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="PauseLayer" parent="." instance=ExtResource("5")]

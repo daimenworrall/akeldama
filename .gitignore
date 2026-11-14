@@ -1,0 +1,21 @@
+# Godot 4 generated data
+.godot/
+.import/
+
+# Local runtime/editor state
+.godot_user/
+.godot_editor_data/
+.xdg_data/
+.xdg_config/
+Library/
+/build/
+/third_party/
+
+# Local scratch files
+.tmp_*
+*.log
+.secrets/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

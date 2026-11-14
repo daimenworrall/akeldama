@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://ui/pause/pause_layer.gd" id="1"]
+[ext_resource type="Theme" path="res://ui/theme/game_theme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://ui/pause/PauseMenu.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://ui/settings/SettingsWindow.tscn" id="4"]
+[node name="PauseLayer" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1")
+[node name="Overlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+[node name="Dim" type="ColorRect" parent="Overlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.01, 0.02, 0.04, 0.75)
+[node name="Center" type="CenterContainer" parent="Overlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+[node name="PauseMenu" parent="Overlay/Center" instance=ExtResource("3")]
+[node name="SettingsWindow" parent="Overlay/Center" instance=ExtResource("4")]
+visible = false

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/pause/pause_menu.gd" id="1"]
+[node name="PauseMenu" type="PanelContainer"]
+custom_minimum_size = Vector2(220, 0)
+script = ExtResource("1")
+[node name="Content" type="VBoxContainer" parent="."]
+[node name="Title" type="Label" parent="Content"]
+text = "Paused"
+horizontal_alignment = 1
+[node name="Resume" type="Button" parent="Content"]
+text = "Resume"
+[node name="Save" type="Button" parent="Content"]
+text = "Save Game"
+disabled = true
+tooltip_text = "Saving is not available yet."
+[node name="Settings" type="Button" parent="Content"]
+text = "Settings"
+[node name="Exit" type="Button" parent="Content"]
+text = "Exit Game"
