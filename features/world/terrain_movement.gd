@@ -2,6 +2,7 @@ extends RefCounted
 ## Resolves a buffered foot area against straight terrain boundaries.
 const Terrain = preload("res://features/world/terrain_map.gd")
 const Shoreline = preload("res://features/world/shoreline_shape.gd")
+const Objects = preload("res://features/world/objects/object_surfaces.gd")
 const EDGE_BUFFER := 16.0
 const FOOT_PROBES: Array[Vector2] = [
 	Vector2.ZERO, Vector2(-6, -3), Vector2(6, -3), Vector2(-6, 3), Vector2(6, 3)]
@@ -17,8 +18,13 @@ static func _build_probes() -> Array[Vector2]:
 	return probes
 
 static func can_stand(terrain: Terrain, position: Vector2) -> bool:
-	for probe in buffered_probes:
-		if not _is_land(terrain, position + probe):
+	if Objects.blocks_feet(terrain, Rect2(position - Vector2(6, 3), Vector2(12, 6))):
+		return false
+	# Bridges use the actual foot area rather than the water-edge buffer.
+	# Union with terrain support keeps bridge entrances traversable from land.
+	var probes := FOOT_PROBES if Objects.provides_support(terrain, position) else buffered_probes
+	for probe in probes:
+		if not _is_land(terrain, position + probe) and not Objects.provides_support(terrain, position + probe):
 			return false
 	return true
 

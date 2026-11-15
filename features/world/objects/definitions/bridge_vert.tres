@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+[ext_resource type="Script" path="res://features/world/objects/object_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/objects/bridge_vert_1.png" id="2"]
+[resource]
+script = ExtResource("1")
+title = "Vertical bridge"
+texture = ExtResource("2")
+visual_offset = Vector2(-8, 0)
+provides_walkway = true
+walkway = Rect2(22, 0, 36, 192)

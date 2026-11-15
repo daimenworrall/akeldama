@@ -8,8 +8,10 @@ const TerrainMap = preload("res://features/world/terrain_map.gd")
 @export var tile_grid: TerrainLayer
 
 func _enter_tree() -> void:
+	y_sort_enabled = true
 	if terrain != null and player != null:
 		player.terrain = terrain
 		if tile_grid != null:
 			tile_grid.terrain = terrain
+			tile_grid.depth_parent = self
 		player.position = Vector2(terrain.spawn_cell * TerrainMap.TILE_SIZE)

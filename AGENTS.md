@@ -74,3 +74,30 @@ The structure is an example, not a mandate to create unused directories. Place n
 - Splitting code into meaningless one-method wrappers just to satisfy a line count.
 
 **If a request would naturally produce a monolithic implementation, proactively design and implement a small collection of cohesive files instead. This instruction applies even when the user asks for a feature in the singular.**
+
+## Game art and PixelLab
+
+Use the connected PixelLab MCP tools automatically whenever a task requires
+creating or modifying pixel art assets. I do not need to explicitly mention
+PixelLab in each request.
+
+- Treat requests such as "add a building", "make the ground grass", or
+  "add a walking animation" as instructions to generate any missing assets
+  with PixelLab and integrate them into the game.
+- Inspect existing assets first. Reuse suitable assets and generate only
+  what is missing.
+- Match the project's established art style, palette, perspective, tile
+  size, sprite scale, and animation conventions. Use existing artwork as
+  a reference where supported.
+- Choose the appropriate PixelLab tools for characters, animations,
+  objects, terrain, or tilesets.
+- Download generated assets into the appropriate project folders and
+  configure their import settings, scenes, tilemaps, and animations as
+  needed. Complete the integration rather than only providing downloads.
+- Preserve crisp pixel art using nearest-neighbour filtering and the
+  project's existing scaling conventions.
+- Proceed with routine generations without asking for confirmation.
+  Start with the smallest useful generation and avoid unnecessary variants
+  or repeated retries.
+- If PixelLab is unavailable or a generation fails, explain the issue.
+  Do not silently replace the requested art with placeholder graphics.

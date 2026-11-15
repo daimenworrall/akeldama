@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: help setup editor level-editor run \
+.PHONY: help setup editor tools-editor level-editor run \
 	export-dev export-prod \
 	upload-dev upload-prod clean
 
@@ -8,7 +8,7 @@ help:
 	@echo "Available targets:"
 	@echo "  make setup        # Download/extract third-party dependencies (GodotSteam)"
 	@echo "  make editor       # Open the GodotSteam editor"
-	@echo "  make level-editor # Open Godot; select the Level Editor workspace"
+	@echo "  make tools-editor # Launch the standalone Akeldama Editor"
 	@echo "  make run          # Run game in dev mode"
 	@echo "  make export-dev   # Export all dev builds"
 	@echo "  make export-prod  # Export all production builds"
@@ -22,7 +22,10 @@ setup:
 editor:
 	./third_party/godotsteam/v4.17.1/GodotSteam.app/Contents/MacOS/Godot --editor --path .
 
-level-editor: editor
+tools-editor:
+	./scripts/run-editor.sh
+
+level-editor: tools-editor
 
 run:
 	./scripts/run.sh

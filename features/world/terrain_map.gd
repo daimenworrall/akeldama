@@ -2,7 +2,9 @@
 extends Resource
 ## Terrain domain data: each character is a corner shared by four tiles.
 ## '#' is grass, '.' is water. Unmapped space is blocked water.
+const MapLayer = preload("res://features/world/map_layer.gd")
 const TILE_SIZE := 64
+@export var layers: Array[MapLayer] = []
 @export var spawn_cell := Vector2i(2, 2)
 @export var origin := Vector2i.ZERO
 @export var corners := PackedStringArray()

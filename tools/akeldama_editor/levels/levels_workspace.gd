@@ -1,8 +1,9 @@
-@tool
 extends VBoxContainer
 ## Coordinates editor controls and file dialogs; no gameplay dependencies.
-const Document = preload("res://addons/level_editor/map_document.gd")
-const Canvas = preload("res://addons/level_editor/map_canvas.gd")
+const Document = preload("res://levels/map_document.gd")
+const LayersPanel = preload("res://levels/layers_panel.gd")
+var layers_panel: Control
+const Canvas = preload("res://levels/map_canvas.gd")
 var document := Document.new()
 var canvas: Control
 var status := Label.new()
@@ -13,7 +14,6 @@ var height_input := SpinBox.new()
 var pending_action: Callable
 
 func _ready() -> void:
-	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var toolbar := HBoxContainer.new()
 	add_child(toolbar)
@@ -24,7 +24,7 @@ func _ready() -> void:
 	_button(toolbar, "Undo", func() -> void: document.undo(); _refresh())
 	_button(toolbar, "Redo", func() -> void: document.redo(); _refresh())
 	var brush := OptionButton.new()
-	for text in ["Grass", "Water", "Spawn"]:
+	for text in ["Grass", "Water", "Tile", "Erase", "Spawn"]:
 		brush.add_item(text)
 	toolbar.add_child(brush)
 	brush.item_selected.connect(func(index: int) -> void: canvas.brush = brush.get_item_text(index))
@@ -41,13 +41,31 @@ func _ready() -> void:
 	width_input.value = 41
 	height_input.value = 31
 	var hint := Label.new()
-	hint.text = "Left-drag: paint terrain corners • Middle-drag: pan • Wheel: zoom • Spawn: click a grassy tile"
+	hint.text = "Paint: drag • Pan: two fingers / middle-drag / Space-drag • Zoom: pinch / wheel"
 	add_child(hint)
 	canvas = Canvas.new()
 	canvas.document = document
 	canvas.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	canvas.edited.connect(_refresh)
-	add_child(canvas)
+	var body := HSplitContainer.new()
+	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	canvas.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	body.add_child(canvas)
+	layers_panel = LayersPanel.new()
+	layers_panel.document = document
+	layers_panel.changed.connect(_refresh)
+	layers_panel.object_selected.connect(func(definition: Resource) -> void: canvas.selected_object = definition)
+	layers_panel.tile_selected.connect(func(tile: Vector2i) -> void: canvas.selected_tile = tile)
+	var sidebar_scroll := ScrollContainer.new()
+	sidebar_scroll.name = "LayersScroll"
+	sidebar_scroll.custom_minimum_size.x = 300
+	sidebar_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sidebar_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	sidebar_scroll.follow_focus = true
+	layers_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sidebar_scroll.add_child(layers_panel)
+	body.add_child(sidebar_scroll)
+	add_child(body)
 	add_child(status)
 	file_dialog.access = FileDialog.ACCESS_RESOURCES
 	file_dialog.filters = PackedStringArray(["*.tres ; Terrain map"])
@@ -114,13 +132,23 @@ func _write(path: String) -> void:
 	_refresh()
 	if error != OK:
 		status.text = "Could not save map: " + error_string(error)
-	else:
-		EditorInterface.get_resource_filesystem().scan()
+
 
 func _refresh() -> void:
 	canvas.queue_redraw()
+	layers_panel.refresh()
 	var label := "Untitled" if document.path.is_empty() else document.path
 	status.text = ("* " if document.dirty else "") + label
 	var validation := document.validation_error()
 	if not validation.is_empty():
 		status.text += " — " + validation
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.pressed or event.echo:
+		return
+	if event.is_command_or_control_pressed() and event.keycode == KEY_S:
+		if event.shift_pressed:
+			_choose_save()
+		else:
+			_save()
+		get_viewport().set_input_as_handled()

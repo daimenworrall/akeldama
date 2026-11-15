@@ -1,8 +1,51 @@
-[gd_resource type="Resource" format=3 uid="uid://bwhg3sr50nmxx"]
+[gd_resource type="Resource" format=3]
 
-[ext_resource type="Script" uid="uid://bmm6xp0666jpd" path="res://features/world/terrain_map.gd" id="1"]
+[ext_resource type="Script" path="res://features/world/terrain_map.gd" id="1"]
+[ext_resource type="Script" path="res://features/world/map_layer.gd" id="1_ukrmj"]
+[ext_resource type="Script" path="res://features/world/objects/object_placement.gd" id="2_q8l2n"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/grass_water.png" id="3_bgiho"]
+[ext_resource type="Resource" path="res://features/world/objects/definitions/bridge_horiz.tres" id="4_2jyr6"]
+[ext_resource type="Resource" path="res://features/world/objects/definitions/bridge_vert.tres" id="5_q8l2n"]
+[ext_resource type="Resource" path="res://features/world/objects/definitions/signpost.tres" id="6_bgiho"]
+
+[sub_resource type="Resource" id="Resource_2jyr6"]
+script = ExtResource("1_ukrmj")
+title = "Terrain"
+kind = 0
+
+[sub_resource type="Resource" id="Resource_q3vhq"]
+script = ExtResource("2_q8l2n")
+definition = ExtResource("4_2jyr6")
+cell = Vector2i(9, 5)
+
+[sub_resource type="Resource" id="Resource_qat05"]
+script = ExtResource("2_q8l2n")
+definition = ExtResource("5_q8l2n")
+cell = Vector2i(0, -3)
+
+[sub_resource type="Resource" id="Resource_07mqj"]
+script = ExtResource("2_q8l2n")
+definition = ExtResource("4_2jyr6")
+cell = Vector2i(12, 5)
+
+[sub_resource type="Resource" id="Resource_x7g67"]
+script = ExtResource("2_q8l2n")
+definition = ExtResource("4_2jyr6")
+cell = Vector2i(15, 5)
+
+[sub_resource type="Resource" id="Resource_bw51f"]
+script = ExtResource("2_q8l2n")
+definition = ExtResource("6_bgiho")
+cell = Vector2i(6, 2)
+
+[sub_resource type="Resource" id="Resource_xk2fd"]
+script = ExtResource("1_ukrmj")
+objects = Array[ExtResource("2_q8l2n")]([SubResource("Resource_q3vhq"), SubResource("Resource_qat05"), SubResource("Resource_07mqj"), SubResource("Resource_x7g67"), SubResource("Resource_bw51f")])
+title = "Objects"
+kind = 2
 
 [resource]
 script = ExtResource("1")
+layers = Array[ExtResource("1_ukrmj")]([SubResource("Resource_2jyr6"), SubResource("Resource_xk2fd")])
 origin = Vector2i(-16, -12)
 corners = PackedStringArray(".........................................", ".........................................", "..####################################...", "..####################################...", "..####################################...", "..####################################...", "..####################################...", "..###################....#############...", "..###################....................", "..################........############...", "..#############.......################...", "..###########.......##################...", "..#########....#######################...", "..#######....#########################...", "..######....##########################...", "..#####....###########################...", "..#####...################.......#####...", "..#####..#################.......#####...", "..####..##################.......#####...", "..###..###################.......#####...", "......####################.......#####...", "...#######################.......#####...", "..########################.......#####...", "..####################################...", "..####################################...", "..####################################...", "..####################################...", "..####################################...", "..####################################...", ".........................................", ".........................................")
