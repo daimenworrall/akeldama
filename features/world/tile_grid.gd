@@ -1,18 +1,14 @@
-extends Node2D
-const TILE_SIZE := 64
-const EXTENT := 48
+extends TileMapLayer
+## Renders terrain data using the grass/water corner atlas.
+const TerrainMap = preload("res://features/world/terrain_map.gd")
+const Atlas = preload("res://features/world/grass_water_atlas.gd")
+@export var terrain: TerrainMap
 
-func _draw() -> void:
-	for y in range(-EXTENT, EXTENT):
-		for x in range(-EXTENT, EXTENT):
-			var origin := Vector2(x, y) * TILE_SIZE
-			var color := Color("88a86d") if (x + y) % 2 == 0 else Color("80a066")
-			if x in [-1, 0] or y in [-1, 0]:
-				color = Color("c7b88b")
-			draw_rect(Rect2(origin, Vector2(TILE_SIZE, TILE_SIZE)), color)
-			# One-pixel grid and grass marks reveal shimmer or uneven scaling.
-			draw_rect(Rect2(origin, Vector2(TILE_SIZE, 1)), Color("71885b"))
-			draw_rect(Rect2(origin, Vector2(1, TILE_SIZE)), Color("71885b"))
-			if color != Color("c7b88b"):
-				draw_rect(Rect2(origin + Vector2(12, 18), Vector2(1, 3)), Color("526e4d"))
-				draw_rect(Rect2(origin + Vector2(14, 17), Vector2(1, 4)), Color("526e4d"))
+func _ready() -> void:
+	if terrain == null:
+		return
+	for y in range(-1, terrain.corners.size()):
+		var width := terrain.corners[maxi(0, y)].length()
+		for x in range(-1, width):
+			var cell := terrain.origin + Vector2i(x, y)
+			set_cell(cell, 0, Atlas.BY_CORNERS[terrain.grass_mask(cell)])

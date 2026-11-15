@@ -13,10 +13,10 @@ static func build(texture: Texture2D, metadata_path: String) -> SpriteFrames:
 				var animation := StringName("idle_" + str(row["directions"][column]))
 				frames.add_animation(animation)
 				frames.add_frame(animation, _frame(texture, cell, column, int(row["row"])))
-		elif row["type"] == "animation" and row["animation"] == "Walking":
+		elif row["type"] == "animation" and row["animation"] in ["Walk", "Walking"]:
 			var animation := StringName("walk_" + str(row["direction"]))
 			frames.add_animation(animation)
-			frames.set_animation_speed(animation, 8.0)
+			frames.set_animation_speed(animation, 6.0)
 			frames.set_animation_loop(animation, true)
 			for column in range(int(row["frame_count"])):
 				frames.add_frame(animation, _frame(texture, cell, column, int(row["row"])))

@@ -59,6 +59,9 @@ func _test_camera_tracking(scene: Node, player: PlayerController) -> void:
 func _test_grid_movement(player: PlayerController) -> void:
 	# Deterministic steps verify taps finish, turns wait, and diagonals never occur.
 	player.set_physics_process(false)
+	# Exercise movement independently of the demo map layout.
+	player.terrain = null
+	var step_time := 64.0 / player.speed
 	var origin := player.position
 	Input.action_press("move_right")
 	player.advance_movement(0.05)
@@ -68,20 +71,20 @@ func _test_grid_movement(player: PlayerController) -> void:
 	assert(player.position == origin + Vector2(64, 0), "Tap did not finish exactly one tile")
 	origin = player.position
 	Input.action_press("move_right")
-	player.advance_movement(0.125)
+	player.advance_movement(step_time / 2.0)
 	Input.action_release("move_right")
 	Input.action_press("move_down")
-	player.advance_movement(0.125)
+	player.advance_movement(step_time / 2.0)
 	assert(player.position == origin + Vector2(64, 0), "Turn happened mid-tile")
-	player.advance_movement(0.25)
+	player.advance_movement(step_time)
 	assert(player.position == origin + Vector2(64, 64), "Turn did not begin at the next tile")
 	Input.action_press("move_right")
 	origin = player.position
-	player.advance_movement(0.25)
+	player.advance_movement(step_time)
 	assert(player.position == origin + Vector2(64, 0), "Diagonal movement occurred")
 	Input.action_release("move_down")
 	origin = player.position
-	player.advance_movement(0.5)
+	player.advance_movement(step_time * 2.0)
 	assert(player.position == origin + Vector2(128, 0), "Held input did not continue across tiles")
 	Input.action_release("move_right")
 	assert(player.position == player.position.snapped(Vector2(64, 64)))

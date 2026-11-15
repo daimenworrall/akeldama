@@ -1,8 +1,10 @@
 extends Node2D
 ## Complete one cardinal tile step before stopping or choosing another direction.
 const PlayerVisual = preload("res://features/player/player_visual.gd")
+const TerrainMap = preload("res://features/world/terrain_map.gd")
 const TILE_SIZE := 64
-@export_range(1.0, 512.0) var speed := 256.0
+@export var terrain: TerrainMap
+@export_range(1.0, 512.0) var speed := 192.0
 @onready var visual: PlayerVisual = $Visual
 var _destination := Vector2.ZERO
 var _moving := false
@@ -24,7 +26,10 @@ func advance_movement(delta: float) -> void:
 			if direction == Vector2.ZERO:
 				break
 			_facing = direction
-			_destination = position + direction * TILE_SIZE
+			var next_position := position + direction * TILE_SIZE
+			if terrain != null and not terrain.is_walkable(next_position):
+				break
+			_destination = next_position
 			_moving = true
 		var distance := position.distance_to(_destination)
 		var travel := minf(distance, remaining_distance)
@@ -34,7 +39,9 @@ func advance_movement(delta: float) -> void:
 			position = _destination
 			_moving = false
 	visual.global_position = global_position.round()
-	visual.set_movement(_facing, _moving or _read_direction() != Vector2.ZERO)
+	var intends_movement := _read_direction() != Vector2.ZERO
+	var can_continue := terrain == null or terrain.is_walkable(position + _facing * TILE_SIZE)
+	visual.set_movement(_facing, _moving or (intends_movement and can_continue))
 
 func _read_direction() -> Vector2:
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")

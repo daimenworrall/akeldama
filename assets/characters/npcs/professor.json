@@ -1,0 +1,69 @@
+{
+  "character": {
+    "id": "ed4b7260-a921-4298-9e28-347d2407944c",
+    "name": "Idle",
+    "prompt": "Nintendo DS-era creature-catching RPG overworld pixel art of a professor-like scientist with subtle Warhammer 40k-inspired gothic-imperial styling, slightly elevated top-down perspective, full body, centred, facing forward, transparent background. Human character with a large head and short body, clear silhouette, crisp pixel clusters, dark outlines, limited colours, and minimal shading. Design him as a knowledgeable field professor: intelligent, calm expression, short neat grey or dark brown hair, small spectacles or visor lens, long white lab coat with faint ash-stained hems, dark undersuit, high collar, utility belt, parchment notes or data device at the waist, and modest gothic sci-fi details such as purity-seal-like tags, segmented sleeves, or a small cog-and-scroll motif. Keep the outfit readable and professor-like first, with only light grimdark military-industrial influence rather than full soldier gear. Use muted whites, faded crimson accents, charcoal greys, and brass details. Add a sombre biblical apocalypse mood through faint dust, embers, and slightly weathered fabric. No bulky power armour, no helmet, no oversized weapon, no cape, no robotic limbs, no backpack, and no scenery.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "spritesheet": {
+    "path": "professor-Idle.png",
+    "cell_size": {
+      "width": 96,
+      "height": 96
+    },
+    "sheet_size": {
+      "width": 768,
+      "height": 384
+    },
+    "columns": 8,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 6,
+        "animation": "Walking",
+        "animation_group_id": "d5b2e18d-02d6-4906-9e66-b33dfab90a38",
+        "direction": "south"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 6,
+        "animation": "Walking",
+        "animation_group_id": "d5b2e18d-02d6-4906-9e66-b33dfab90a38",
+        "direction": "east"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 6,
+        "animation": "Walking",
+        "animation_group_id": "d5b2e18d-02d6-4906-9e66-b33dfab90a38",
+        "direction": "north"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-14T21:59:45.953785+00:00"
+}

@@ -1,8 +1,8 @@
 {
   "character": {
-    "id": "2fa2dd2b-2230-4d57-94aa-29f255eb61a7",
+    "id": "d3906afb-dd5d-42b5-bcc7-b565287b115d",
     "name": "Idle",
-    "prompt": "Human male protagonist for a creature-catching game set during a biblical apocalypse. Classic handheld monster-catching RPG pixel art, with a sombre atmosphere, muted colours, and strong, readable shapes. Short blonde hair, faded red shirt, worn blue trousers, and scuffed brown boots. An ordinary young survivor with a determined expression and a simple, modest outfit. Subtle wear and dust on his clothes. Full body, clearly human anatomy, exactly two arms and two legs. No tail, wings, horns, halo, animal features, extra appendages, weapons, or accessories. Character only, no scenery or background objects.",
+    "prompt": "A human male protagonist overworld sprite for a Nintendo DS-era creature-catching RPG, viewed from a slightly elevated top-down perspective. Compact, charming proportions with a large head and short body. Short blonde hair, a plain faded red shirt, blue trousers, and brown boots. Simple outfit with subtle signs of wear. A sombre, biblical apocalypse atmosphere expressed through muted colours, while keeping the character readable and recognisably human. Crisp pixel clusters, clear dark outlines, a limited colour palette, and minimal shading. Full body, centred, standing idle and facing directly forward. Character only, transparent background. No tail, wings, horns, halo, animal features, armour, weapons, bags, extra limbs, or background scenery.",
     "size": {
       "width": 64,
       "height": 64
@@ -11,7 +11,7 @@
     "view": "low top-down"
   },
   "spritesheet": {
-    "path": "male_player-Idle.png",
+    "path": "human_male-Idle.png",
     "cell_size": {
       "width": 96,
       "height": 96
@@ -42,28 +42,28 @@
         "row": 1,
         "type": "animation",
         "frame_count": 6,
-        "animation": "Walking",
-        "animation_group_id": "16e7cadc-5a40-47bf-a7ba-fdf79edc16a7",
+        "animation": "Walk",
+        "animation_group_id": "fef42c1f-9e95-44df-92ac-4b625f785d70",
         "direction": "south"
       },
       {
         "row": 2,
         "type": "animation",
         "frame_count": 6,
-        "animation": "Walking",
-        "animation_group_id": "16e7cadc-5a40-47bf-a7ba-fdf79edc16a7",
+        "animation": "Walk",
+        "animation_group_id": "fef42c1f-9e95-44df-92ac-4b625f785d70",
         "direction": "east"
       },
       {
         "row": 3,
         "type": "animation",
         "frame_count": 6,
-        "animation": "Walking",
-        "animation_group_id": "16e7cadc-5a40-47bf-a7ba-fdf79edc16a7",
+        "animation": "Walk",
+        "animation_group_id": "fef42c1f-9e95-44df-92ac-4b625f785d70",
         "direction": "north"
       }
     ]
   },
   "export_version": "1.0",
-  "export_date": "2026-11-14T18:10:35.757756+00:00"
+  "export_date": "2026-11-14T18:53:48.283841+00:00"
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://features/world/tile_grid.gd" id="1"]
 [ext_resource type="PackedScene" path="res://features/player/Player.tscn" id="2"]
@@ -6,15 +6,22 @@
 
 [ext_resource type="PackedScene" path="res://ui/pause/PauseLayer.tscn" id="5"]
 
+[ext_resource type="TileSet" path="res://features/world/grass_water_tileset.tres" id="6"]
+[ext_resource type="Resource" path="res://features/world/demo_terrain.tres" id="7"]
+
 [node name="Main" type="Node2D"]
 
 [node name="World" type="Node2D" parent="."]
 
-[node name="TileGrid" type="Node2D" parent="World"]
+[node name="TileGrid" type="TileMapLayer" parent="World"]
+position = Vector2(-32, -32)
+tile_set = ExtResource("6")
 script = ExtResource("1")
+terrain = ExtResource("7")
 
 [node name="Player" parent="World" instance=ExtResource("2")]
 position = Vector2(128, 128)
+terrain = ExtResource("7")
 
 [node name="Camera2D" type="Camera2D" parent="World" node_paths=PackedStringArray("target")]
 process_callback = 0
