@@ -1,8 +1,8 @@
 extends VBoxContainer
 ## Coordinates editor controls and file dialogs; no gameplay dependencies.
 const Document = preload("res://levels/map_document.gd")
-const LayersPanel = preload("res://levels/layers_panel.gd")
-var layers_panel: Control
+const Sidebar = preload("res://levels/tools_sidebar.gd")
+var sidebar: TabContainer
 const Canvas = preload("res://levels/map_canvas.gd")
 var document := Document.new()
 var canvas: Control
@@ -51,20 +51,12 @@ func _ready() -> void:
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	canvas.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_child(canvas)
-	layers_panel = LayersPanel.new()
-	layers_panel.document = document
-	layers_panel.changed.connect(_refresh)
-	layers_panel.object_selected.connect(func(definition: Resource) -> void: canvas.selected_object = definition)
-	layers_panel.tile_selected.connect(func(tile: Vector2i) -> void: canvas.selected_tile = tile)
-	var sidebar_scroll := ScrollContainer.new()
-	sidebar_scroll.name = "LayersScroll"
-	sidebar_scroll.custom_minimum_size.x = 300
-	sidebar_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	sidebar_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-	sidebar_scroll.follow_focus = true
-	layers_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	sidebar_scroll.add_child(layers_panel)
-	body.add_child(sidebar_scroll)
+	sidebar = Sidebar.new()
+	sidebar.document = document
+	sidebar.changed.connect(_refresh)
+	sidebar.object_selected.connect(func(definition: Resource) -> void: canvas.selected_object = definition)
+	sidebar.tile_selected.connect(func(tile: Vector2i) -> void: canvas.selected_tile = tile)
+	body.add_child(sidebar)
 	add_child(body)
 	add_child(status)
 	file_dialog.access = FileDialog.ACCESS_RESOURCES
@@ -136,7 +128,7 @@ func _write(path: String) -> void:
 
 func _refresh() -> void:
 	canvas.queue_redraw()
-	layers_panel.refresh()
+	sidebar.refresh()
 	var label := "Untitled" if document.path.is_empty() else document.path
 	status.text = ("* " if document.dirty else "") + label
 	var validation := document.validation_error()

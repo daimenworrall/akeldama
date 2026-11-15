@@ -10,3 +10,4 @@ texture = ExtResource("2")
 collision = Rect2(26, 48, 12, 10)
 depth_sorted = true
 depth_anchor = Vector2(32, 55)
+casts_shadow = true

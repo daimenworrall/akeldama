@@ -10,3 +10,4 @@ extends Resource
 @export var collision := Rect2()
 @export var depth_sorted := false
 @export var depth_anchor := Vector2.ZERO
+@export var casts_shadow := false

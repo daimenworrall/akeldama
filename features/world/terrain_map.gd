@@ -4,6 +4,8 @@ extends Resource
 ## '#' is grass, '.' is water. Unmapped space is blocked water.
 const MapLayer = preload("res://features/world/map_layer.gd")
 const TILE_SIZE := 64
+const Lighting = preload("res://features/world/lighting/level_lighting.gd")
+@export var lighting: Lighting = Lighting.new()
 @export var layers: Array[MapLayer] = []
 @export var spawn_cell := Vector2i(2, 2)
 @export var origin := Vector2i.ZERO

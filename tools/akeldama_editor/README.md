@@ -22,6 +22,11 @@ built with Godot but has its own project, window, theme and workspace navigation
 
 ## Tilesets and layers
 
+The right sidebar has three tabs: **Layers** manages the stack and layer properties,
+**Painting** shows tile/object choices for the selected layer, and **Lighting**
+edits level lighting. Each tab scrolls independently. Select a layer in Layers,
+then open Painting to choose its artwork; switching tabs preserves your selection.
+
 The right panel lists layers from top to bottom (top draws last). Select a layer
 before painting. Use +, Copy, Delete, ↑ and ↓ to manage the stack; rename in the
 name field and press Enter. Visibility, locking and opacity are saved with the map
@@ -72,6 +77,22 @@ Definitions live in `features/world/objects/definitions/` and refer to artwork u
 and whether it provides a walkway. The picker discovers definition resources at
 startup. An image alone does not define its gameplay behaviour: add a definition
 for future object types. Placement resources store the chosen definition and cell.
+
+## Level lighting
+
+The sidebar's **Level lighting** controls save with each map and support Undo/Redo.
+Use Ambient tint for overall brightness/color, then enable Cast ground shadows
+and choose shadow color/opacity, angle and length. Zero degrees projects right;
+90 degrees projects down. Existing levels default to white tint and shadows off.
+The map preview shows prop shadows and tint; the game also projects the player's
+current animation frame. UI remains untinted.
+
+Object definitions opt in with `casts_shadow`, using `depth_anchor` as the ground
+contact point. These are flat projected silhouettes, without light occlusion or
+point-light sources. Bridges do not cast shadows by default.
+
+Lighting data and rendering live in `features/world/lighting/`; the editor controls
+live in `levels/lighting_panel.gd`. No generated artwork is required.
 
 ## Ownership
 
