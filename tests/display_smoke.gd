@@ -13,15 +13,22 @@ func _run() -> void:
 	_test_player_art(player)
 	_test_display_configuration()
 	await _test_camera_tracking(scene, player)
-	_test_grid_movement(player)
-	print("PASS: display configuration, resolution scales, grid taps/turns/held input, pixel alignment, camera settling")
+	_test_free_movement(player)
+	print("PASS: display configuration, resolution scales, continuous movement, immediate stopping, normalized diagonals, pixel alignment, camera settling")
 	quit()
 
 func _test_player_art(player: PlayerController) -> void:
 	var visual = player.get_node("Visual")
 	assert(visual.sprite_frames.get_frame_count(&"walk_south") == 6)
 	var texture: AtlasTexture = visual.sprite_frames.get_frame_texture(&"walk_north", 5)
-	assert(texture.region == Rect2(480, 288, 96, 96))
+	assert(texture.region == Rect2(480, 480, 96, 96))
+	for index in range(8):
+		var direction := Vector2.RIGHT.rotated(index * PI / 4.0)
+		visual.set_movement(direction, true)
+		assert(visual.sprite_frames.has_animation(visual.animation))
+		assert(visual.sprite_frames.get_frame_count(visual.animation) == 6)
+		visual.set_movement(direction, false)
+		assert(String(visual.animation).begins_with("idle_"))
 	visual.set_movement(Vector2.LEFT, true)
 	assert(visual.animation == &"walk_east" and visual.flip_h)
 	visual.set_movement(Vector2.LEFT, false)
@@ -56,35 +63,30 @@ func _test_camera_tracking(scene: Node, player: PlayerController) -> void:
 	assert(camera.position.distance_to(player.position) <= 1.0, "Camera did not settle")
 	assert(not camera.position_smoothing_enabled)
 
-func _test_grid_movement(player: PlayerController) -> void:
-	# Deterministic steps verify taps finish, turns wait, and diagonals never occur.
+func _test_free_movement(player: PlayerController) -> void:
 	player.set_physics_process(false)
-	# Exercise movement independently of the demo map layout.
 	player.terrain = null
-	var step_time := 64.0 / player.speed
 	var origin := player.position
 	Input.action_press("move_right")
 	player.advance_movement(0.05)
-	assert(player.position.x > origin.x and player.position.x < origin.x + 64)
+	var stopped := player.position
+	assert(stopped.is_equal_approx(origin + Vector2(player.speed * 0.05, 0)))
 	Input.action_release("move_right")
 	player.advance_movement(0.5)
-	assert(player.position == origin + Vector2(64, 0), "Tap did not finish exactly one tile")
-	origin = player.position
-	Input.action_press("move_right")
-	player.advance_movement(step_time / 2.0)
-	Input.action_release("move_right")
-	Input.action_press("move_down")
-	player.advance_movement(step_time / 2.0)
-	assert(player.position == origin + Vector2(64, 0), "Turn happened mid-tile")
-	player.advance_movement(step_time)
-	assert(player.position == origin + Vector2(64, 64), "Turn did not begin at the next tile")
+	assert(player.position == stopped, "Player continued after release")
+	Input.action_press("move_up")
 	Input.action_press("move_right")
 	origin = player.position
-	player.advance_movement(step_time)
-	assert(player.position == origin + Vector2(64, 0), "Diagonal movement occurred")
-	Input.action_release("move_down")
-	origin = player.position
-	player.advance_movement(step_time * 2.0)
-	assert(player.position == origin + Vector2(128, 0), "Held input did not continue across tiles")
+	player.advance_movement(0.5)
+	var traveled := player.position - origin
+	assert(is_equal_approx(traveled.length(), player.speed * 0.5), "Diagonal speed boost")
+	assert(traveled.x > 0 and traveled.y < 0)
+	assert(player.visual.animation == &"walk_north-east")
 	Input.action_release("move_right")
-	assert(player.position == player.position.snapped(Vector2(64, 64)))
+	Input.action_release("move_up")
+	player.advance_movement(0.1)
+	assert(player.visual.animation == &"idle_north-east")
+	player.visual.set_movement(Vector2(-1, -1), true)
+	assert(player.visual.animation == &"walk_north-east" and player.visual.flip_h)
+	player.visual.set_movement(Vector2(-1, 1), true)
+	assert(player.visual.animation == &"walk_south-east" and player.visual.flip_h)
