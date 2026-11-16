@@ -3,6 +3,10 @@ extends CanvasLayer
 @onready var menu: PanelContainer = $Overlay/Center/PauseMenu
 @onready var settings: PanelContainer = $Overlay/Center/SettingsWindow
 var _was_paused := false
+var _story_modal_open := false
+
+func set_story_modal_open(value: bool) -> void:
+	_story_modal_open = value
 
 func _ready() -> void:
 	menu.resume_requested.connect(close)
@@ -12,6 +16,8 @@ func _ready() -> void:
 	overlay.hide()
 
 func _input(event: InputEvent) -> void:
+	if _story_modal_open and (event.is_action_pressed("ui_cancel") or event.is_action_pressed("pause_game")) and not overlay.visible:
+		return
 	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("pause_game"):
 		if event.is_echo():
 			return

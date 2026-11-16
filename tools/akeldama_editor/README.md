@@ -22,9 +22,9 @@ built with Godot but has its own project, window, theme and workspace navigation
 
 ## Tilesets and layers
 
-The right sidebar has three tabs: **Layers** manages the stack and layer properties,
+The right sidebar has four tabs: **Layers** manages the stack and layer properties,
 **Painting** shows tile/object choices for the selected layer, and **Lighting**
-edits level lighting. Each tab scrolls independently. Select a layer in Layers,
+edits level lighting. **Inspect** selects placed NPCs and objects. Each tab scrolls independently. Select a layer in Layers,
 then open Painting to choose its artwork; switching tabs preserves your selection.
 
 The right panel lists layers from top to bottom (top draws last). Select a layer
@@ -99,8 +99,8 @@ live in `levels/lighting_panel.gd`. No generated artwork is required.
 - `app/`: desktop shell, navigation, close handling, shared editor theme.
 - `levels/`: level workspace controls, map canvas and editable document/history.
 - `tests/`: editor document and persistence checks.
-- Entities and Questlines are planned workspaces; their editors are not implemented.
-  Future editors should have their own feature folder and workspace scene/script.
+- `story/`: quest/conversation forms, content validation, history and disposable dialogue preview.
+- Entities remains a planned workspace; stationary NPCs currently use object definitions.
 
 The launcher creates relative links to the game's `assets/` and `features/`.
 This keeps `res://` resource paths identical in the editor and game: editing a map
@@ -121,3 +121,128 @@ The old Godot editor plugin has been removed.
 
 Terrain collision uses straight edges from map corners, not decorative pixels,
 with a 16px buffer around the player's foot area. No collision baking is needed.
+
+## Inspect and story tools
+
+Select **Inspect** in the sidebar or brush dropdown, then click a visible object.
+The inspector shows its persistent ID (with Copy), instance name and conversation
+assignment. Names commit with Enter or when focus leaves the field. Locked layers
+can be inspected but not edited. IDs survive saves, renames and undo; copying an
+object layer generates fresh IDs. Legacy maps receive IDs on open and must be saved.
+
+Choose **Story** in workspace navigation. Quests contain ordered
+interaction targets chosen by level/name; conversations contain entry nodes, lines,
+player responses, quest-state conditions and start/complete actions. An empty response
+destination ends the conversation. Nodes without responses display Close. The first
+matching entry node wins. Save story validates IDs, entity targets, destinations,
+conditions/actions and structurally unreachable nodes. Map and story changes have
+separate Save and Undo/Redo controls; closing warns about either dirty document.
+Save new placements in Levels too so their IDs exist when the game runs.
+
+Select a conversation and use **Preview conversation** to test choices with a
+simulated quest state. Preview never writes game progress. Inspector assignments
+refresh from saved story content; restart the game after saving story changes.
+
+### Demo
+
+The demo places the professor near spawn (cell 4,2) and the noticeboard east of him
+(cell 6,2). Face the professor and use **E / Enter / gamepad A**. Accept the request,
+read the sign, then return and choose the report response. Arrow keys/D-pad navigate
+responses; Enter/A selects; Escape/B closes dialogue. Movement is suspended while
+speaking, and Escape closes dialogue without also opening Pause.
+
+The quest status appears at the top left after acceptance. Quest progress saves
+automatically to `user://quest_progress.json` and survives restarts. To replay from
+scratch, remove that file from Godot's project user-data directory while the game
+is closed. This first slice supports stationary NPCs, interaction objectives and
+quest actions; inventory rewards, roaming NPCs and save slots
+are not implemented.
+
+### Story ownership and checks
+
+- `features/quests/`: quest definitions, pure journal state and local persistence.
+- `features/dialogue/`: conversation resources, branching session and dialogue UI.
+- `features/story/`: catalog, validation, demo content and runtime coordination.
+- `features/world/interaction/`: facing/range/reachability targeting.
+- `levels/entity_inspector.gd`: instance inspection and conversation assignment.
+- `story/`: content forms, named entity index and isolated conversation preview.
+
+Run `tests/story_smoke.gd` and `tests/story_integration_smoke.gd` with the game's
+Godot project, and `./scripts/run-editor.sh --headless --script
+res://tests/story_editor_smoke.gd` for editor coverage. These use separate temporary
+save files and do not overwrite player progress.
+
+## Conversation graph
+
+Story opens on **Conversations**. Select the professor conversation to see its
+existing branches. Each card is one spoken line; gold output sockets correspond
+to player responses, and blue input sockets receive the next line. Drag gold to
+blue to connect or replace a destination. Right-click a connected socket to
+unlink it. Unconnected responses end the conversation and display **[End]**.
+
+Click a card to edit its line and responses in the right inspector. **Start here**
+marks an entry, with optional quest-state rules. The response selector edits one
+response at a time; **Quest condition / action** reveals optional quest controls.
+Conditions and actions remain attached to entries/responses, rather than separate
+runtime node types. Quest objectives still use the quest list editor.
+
+Use **Add dialogue** and **Add response** to expand the flow. **Delete selected**
+(or Delete on the graph) asks before removing cards; incoming responses become
+conversation endings. Undo restores the cards and wires. Drag cards to rearrange,
+middle-drag to pan, and use the wheel to zoom. **Fit** frames the conversation;
+**Arrange** resets its layout. Card positions save with the story and support
+Undo/Redo. Opening older conversations lays them out without changing gameplay.
+
+**Preview conversation** runs the same dialogue data with simulated quest progress
+and highlights the current card. Use **Save story** to persist edits. Graph
+coordination, card rendering and the inspector live in separate scripts:
+`conversation_form.gd`, `dialogue_graph_card.gd` and `dialogue_inspector.gd`.
+
+Graph regression check:
+`./scripts/run-editor.sh --headless --script res://tests/dialogue_graph_smoke.gd`.
+
+## Quest prerequisites and player journal
+
+In **Story → Quests**, select a quest and use **Requires completed quests** to
+choose prerequisites by title. All checked quests must be **completed**; merely
+accepting or finishing their objectives is insufficient. Missing references,
+self-dependencies and cycles prevent saving. Runtime checks apply to every quest
+start, including dialogue actions. Blocked offers are hidden. Existing accepted
+quests are retained when loading older saves, even if content prerequisites change.
+
+Set optional **Objective text** for each interaction target and **When objectives
+are done** for the return/report instruction shown to the player. Blank objective
+text falls back to the target's instance name. The conversation preview can
+simulate locked/available/active/ready/completed states; simulating an unlocked
+state also completes its prerequisites in the disposable preview journal.
+
+Press **J / gamepad Y** to open the in-game quest journal. Active quests (including
+those ready to report) and Completed quests have separate tabs. Select any quest
+to see its description and objective checklist; Track quest chooses the one shown
+on the HUD. Every active quest advances independently, whether tracked or not.
+The world pauses while the journal is open; J, Escape, B or the close button returns
+to play. Progress and the tracked selection save automatically, with support for
+older progress files that have no tracking field.
+
+Demo: accept the professor's notice request, then ask **Any other work I can do at
+the same time?** for **Record the evacuation warning**. Both quests advance when
+you read the noticeboard and can be reported separately. After completing
+**Read the village notice**, **What should I do next?** offers **Confirm the
+evacuation route**, which requires that first quest to be completed.
+
+Dependencies and state live in `features/quests/`; journal panel, modal lifecycle,
+and HUD tracking each have their own script under `features/quests/ui/`.
+Additional checks: game `tests/quest_journal_smoke.gd` and
+`tests/quest_journal_ui_smoke.gd`; editor `tests/quest_prerequisites_smoke.gd`.
+
+### Temporary quest reset
+
+In the in-game journal (**J / Y**), select an Active or Completed quest and choose
+**Reset quest (temporary)**. Confirmation lists that quest and all quests whose
+prerequisites depend on it, including indirect dependents. Confirming removes
+acceptance, objective progress and completion for the entire affected chain, so
+quests must be accepted again. Prerequisites and unrelated quests are retained;
+tracked-quest selection is repaired and the reset saves automatically. Cancel
+leaves progress unchanged. This is a temporary testing control.
+
+Run game `tests/quest_reset_smoke.gd` for dependency cascade and persistence checks.

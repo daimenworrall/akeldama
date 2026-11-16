@@ -3,6 +3,7 @@ extends RefCounted
 const Placement = preload("res://features/world/objects/object_placement.gd")
 const Definition = preload("res://features/world/objects/object_definition.gd")
 const Layer = preload("res://features/world/map_layer.gd")
+const Identity = preload("res://features/world/objects/entity_identity.gd")
 
 static func stamp(document: RefCounted, cell: Vector2i, definition: Definition, erase: bool, point: Vector2) -> void:
 	var layer: Layer = document.terrain.layers[document.active_layer]
@@ -20,11 +21,15 @@ static func stamp(document: RefCounted, cell: Vector2i, definition: Definition, 
 	var placed := Placement.new()
 	placed.cell = cell
 	placed.definition = definition
+	placed.entity_id = Identity.create()
 	var map_rect := Rect2(Vector2(document.terrain.origin * 64) - Vector2(32, 32), Vector2(document.terrain.corners[0].length() - 1, document.terrain.corners.size() - 1) * 64)
 	if not map_rect.encloses(placed.visual_rect()):
 		return
 	for index in range(layer.objects.size()):
 		if layer.objects[index].cell == cell:
+			# Dragging over the same stamp must not replace its authored identity.
+			if layer.objects[index].definition == definition:
+				return
 			layer.objects[index] = placed
 			document.dirty = true
 			return

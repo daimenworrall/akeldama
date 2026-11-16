@@ -3,9 +3,14 @@ extends TabContainer
 signal changed
 signal tile_selected(tile: Vector2i)
 signal object_selected(definition: Resource)
+signal inspect_requested
+signal painting_requested
+signal open_conversation_requested(id: String)
 const Layers = preload("res://levels/layers_panel.gd")
 const Painting = preload("res://levels/painting_panel.gd")
 const Lighting = preload("res://levels/lighting_panel.gd")
+const Inspector = preload("res://levels/entity_inspector.gd")
+var inspector := Inspector.new()
 var document: RefCounted
 var panels: Array[Control] = []
 
@@ -16,12 +21,24 @@ func _ready() -> void:
 	var layers := Layers.new()
 	var painting := Painting.new()
 	var lighting := Lighting.new()
+	inspector.open_conversation_requested.connect(func(id: String) -> void: open_conversation_requested.emit(id))
 	painting.tile_selected.connect(func(tile: Vector2i) -> void: tile_selected.emit(tile))
 	painting.object_selected.connect(func(definition: Resource) -> void: object_selected.emit(definition))
 	_add_tab("Layers", layers)
 	_add_tab("Painting", painting)
 	_add_tab("Lighting", lighting)
+	_add_tab("Inspect", inspector)
 	current_tab = 0
+	tab_changed.connect(func(index: int) -> void:
+		if index == 3:
+			inspect_requested.emit()
+		elif index == 1:
+			painting_requested.emit())
+
+func inspect(id: String) -> void:
+	inspector.selected_id = id
+	current_tab = 3
+	inspector.refresh()
 
 func _add_tab(title: String, panel: Control) -> void:
 	panel.document = document

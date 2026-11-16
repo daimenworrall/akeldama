@@ -1,6 +1,8 @@
 extends Control
 ## Terrain preview with mouse and native trackpad navigation.
 signal edited
+signal inspected(id: String)
+var inspected_id := ""
 const ObjectEditing = preload("res://levels/object_editing.gd")
 const Movement = preload("res://features/world/terrain_movement.gd")
 var selected_object: Resource
@@ -27,6 +29,11 @@ func _draw() -> void:
 	Preview.draw_map(self, map, pan, zoom)
 	var spawn: Vector2 = pan + (Vector2(map.spawn_cell - map.origin) + Vector2(0.5, 0.5)) * tile_size
 	_draw_object_preview()
+	for layer in map.layers:
+		for placed in layer.objects:
+			if placed.entity_id == inspected_id and layer.visible:
+				var origin: Vector2 = Vector2((placed.cell - map.origin) * 64) + placed.definition.visual_offset
+				draw_rect(Rect2(pan + origin * zoom, placed.definition.texture.get_size() * zoom), Color.CYAN, false, 2)
 	draw_circle(spawn, 8, Color("ffe08a"))
 	draw_string(ThemeDB.fallback_font, spawn + Vector2(10, 5), "Spawn", HORIZONTAL_ALIGNMENT_LEFT, -1, 14)
 
@@ -46,7 +53,8 @@ func _gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			_painting = event.pressed and not Input.is_physical_key_pressed(KEY_SPACE)
 			if _painting:
-				document.checkpoint()
+				if brush != "Inspect":
+					document.checkpoint()
 				_paint(event.position)
 	elif event is InputEventMouseMotion:
 		queue_redraw()
@@ -67,7 +75,22 @@ func _zoom_at(point: Vector2, factor: float) -> void:
 
 func _paint(point: Vector2) -> void:
 	var local := (point - pan) / (64.0 * zoom)
-	if brush == "Spawn":
+	if brush == "Inspect":
+		var world_point: Vector2 = local * 64 + Vector2(document.terrain.origin * 64) - Vector2(32, 32)
+		inspected_id = ""
+		for index in range(document.terrain.layers.size() - 1, -1, -1):
+			var layer = document.terrain.layers[index]
+			if not layer.visible:
+				continue
+			for object_index in range(layer.objects.size() - 1, -1, -1):
+				var placed = layer.objects[object_index]
+				if placed.visual_rect().has_point(world_point):
+					inspected_id = placed.entity_id
+					break
+			if not inspected_id.is_empty():
+				break
+		inspected.emit(inspected_id)
+	elif brush == "Spawn":
 		var cell: Vector2i = Vector2i(local.floor()) + document.terrain.origin
 		if Movement.can_stand(document.terrain, Vector2(cell * 64)):
 			document.terrain.spawn_cell = cell
@@ -89,7 +112,7 @@ func _paint(point: Vector2) -> void:
 func _draw_object_preview() -> void:
 	var layer: Layer = document.terrain.layers[document.active_layer]
 	var point := get_local_mouse_position()
-	if layer.kind != Layer.Kind.OBJECTS or selected_object == null or brush in ["Spawn", "Erase"] or not Rect2(Vector2.ZERO, size).has_point(point):
+	if layer.kind != Layer.Kind.OBJECTS or selected_object == null or brush in ["Spawn", "Erase", "Inspect"] or not Rect2(Vector2.ZERO, size).has_point(point):
 		return
 	var cell := Vector2i(((point - pan) / (64 * zoom)).floor())
 	var origin: Vector2 = Vector2(cell * 64) + selected_object.visual_offset

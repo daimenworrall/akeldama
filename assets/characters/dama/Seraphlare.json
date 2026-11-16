@@ -1,0 +1,117 @@
+{
+  "character": {
+    "id": "9ddabc04-0065-45dc-8d41-033eaeb7bb64",
+    "name": "Idle",
+    "prompt": "A medium fire crocodile starter creature for a Nintendo DS-era creature-catching RPG set during a biblical apocalypse. Chunky but muscular body, oversized head, short legs, tiny arms, a broad blunt snout, and two small visible teeth. dark crimson scales, a pale ash-coloured face and belly, and glowing ember-red cracks across its body. cute and Endearing but slightly unsettling, with a simple, recognisable silhouette. Compact overworld pixel art, crisp pixel clusters, clear dark outlines, limited colours, and minimal shading. Full body, centred, facing forward, transparent background. Exactly two arms, two legs, and one short crocodile tail. No horns, clothing, accessories, or scenery. It should have stubby proto-wings that don't quite function and small bone armour appearing on its body - like shoulder plates for example.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "spritesheet": {
+    "path": "Seraphlare-Idle.png",
+    "cell_size": {
+      "width": 84,
+      "height": 84
+    },
+    "sheet_size": {
+      "width": 756,
+      "height": 840
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Right Punch",
+        "animation_group_id": "5717311d-f45e-456e-aaa4-bc03b6656856",
+        "direction": "north-east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Right Punch",
+        "animation_group_id": "5717311d-f45e-456e-aaa4-bc03b6656856",
+        "direction": "south-west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Lean forward and open the mouth wide in a sharp, sudden wind-up motion, then spring back to the upright starting pose with the mouth snapping shut.",
+        "animation_group_id": "644faad0-9768-45ba-bb8d-5db74a6336ef",
+        "direction": "north-east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Lean forward and open the mouth wide in a sharp, sudden wind-up motion, then spring back to the upright starting pose with the mouth snapping shut.",
+        "animation_group_id": "644faad0-9768-45ba-bb8d-5db74a6336ef",
+        "direction": "south-west"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "bbdeb701-e22e-459a-9638-81db0bba8f21",
+        "direction": "south"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "bbdeb701-e22e-459a-9638-81db0bba8f21",
+        "direction": "south-east"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "bbdeb701-e22e-459a-9638-81db0bba8f21",
+        "direction": "east"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "bbdeb701-e22e-459a-9638-81db0bba8f21",
+        "direction": "north-east"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "bbdeb701-e22e-459a-9638-81db0bba8f21",
+        "direction": "north"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-16T16:57:47.308149+00:00"
+}

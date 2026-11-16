@@ -18,7 +18,7 @@
     },
     "sheet_size": {
       "width": 768,
-      "height": 576
+      "height": 1056
     },
     "columns": 8,
     "pivot": "cell-center",
@@ -41,13 +41,53 @@
       {
         "row": 1,
         "type": "animation",
+        "frame_count": 7,
+        "animation": "Throw Object",
+        "animation_group_id": "4ed45f36-bcd1-427b-a7b6-00c1c8ad9dc4",
+        "direction": "south"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 7,
+        "animation": "Throw Object",
+        "animation_group_id": "4ed45f36-bcd1-427b-a7b6-00c1c8ad9dc4",
+        "direction": "south-east"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 7,
+        "animation": "Throw Object",
+        "animation_group_id": "4ed45f36-bcd1-427b-a7b6-00c1c8ad9dc4",
+        "direction": "east"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 7,
+        "animation": "Throw Object",
+        "animation_group_id": "4ed45f36-bcd1-427b-a7b6-00c1c8ad9dc4",
+        "direction": "north-east"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 7,
+        "animation": "Throw Object",
+        "animation_group_id": "4ed45f36-bcd1-427b-a7b6-00c1c8ad9dc4",
+        "direction": "north"
+      },
+      {
+        "row": 6,
+        "type": "animation",
         "frame_count": 6,
         "animation": "Walk",
         "animation_group_id": "fef42c1f-9e95-44df-92ac-4b625f785d70",
         "direction": "south"
       },
       {
-        "row": 2,
+        "row": 7,
         "type": "animation",
         "frame_count": 6,
         "animation": "Walk",
@@ -55,7 +95,7 @@
         "direction": "south-east"
       },
       {
-        "row": 3,
+        "row": 8,
         "type": "animation",
         "frame_count": 6,
         "animation": "Walk",
@@ -63,7 +103,7 @@
         "direction": "east"
       },
       {
-        "row": 4,
+        "row": 9,
         "type": "animation",
         "frame_count": 6,
         "animation": "Walk",
@@ -71,7 +111,7 @@
         "direction": "north-east"
       },
       {
-        "row": 5,
+        "row": 10,
         "type": "animation",
         "frame_count": 6,
         "animation": "Walk",
@@ -81,5 +121,5 @@
     ]
   },
   "export_version": "1.0",
-  "export_date": "2026-11-15T19:06:55.412901+00:00"
+  "export_date": "2026-11-15T21:40:42.841766+00:00"
 }

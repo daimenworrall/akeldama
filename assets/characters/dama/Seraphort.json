@@ -1,0 +1,117 @@
+{
+  "character": {
+    "id": "64a1ad76-d2d3-4ef4-80ca-694553891f2e",
+    "name": "Idle",
+    "prompt": "A fully evolved fire crocodile named Seraphort for a Nintendo DS-era creature-catching RPG set during a biblical apocalypse. A large, stocky, muscular creature with a broad chest, sturdy legs, powerful arms, an oversized head, a broad blunt snout, and two visible lower teeth. Dark crimson scales, a pale ash-coloured face and belly, and glowing ember-red cracks between its armour plates. Thick, pale bone armour grows naturally from its body, forming broad shoulder plates, overlapping chest plates, forearm guards, and reinforced shin plates. The armour resembles the battlements of an ancient fortress, with simple angular shapes and restrained pointed edges. Two large, powerful dragon wings rise from its upper back, with dark crimson membranes, pale bone supports, and a few glowing ember veins. Wings spread upward and outward, framing the body like a protective shield while keeping its face and limbs clearly visible. A protective, imposing stance, with a stern but endearing expression; recognisably the final evolution of a cute crocodile starter. A simple, memorable silhouette that remains readable at a small sprite size. Compact overworld pixel art, crisp pixel clusters, clear dark outlines, limited colours, and minimal shading. Full body, centred, facing forward, transparent background. Exactly two arms, two legs, two wings, and one thick crocodile tail. Armour is part of its anatomy. No clothing, weapons, accessories, text, scenery, or ground shadow.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "spritesheet": {
+    "path": "Seraphort-Idle.png",
+    "cell_size": {
+      "width": 88,
+      "height": 88
+    },
+    "sheet_size": {
+      "width": 792,
+      "height": 880
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Lean forward and open the mouth wide in a sharp, sudden wind-up motion, then spring back to the upright starting pose with the mouth snapping shut.",
+        "animation_group_id": "0b1d6378-6da7-4050-a08c-ba3671234305",
+        "direction": "north-east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Lean forward and open the mouth wide in a sharp, sudden wind-up motion, then spring back to the upright starting pose with the mouth snapping shut.",
+        "animation_group_id": "0b1d6378-6da7-4050-a08c-ba3671234305",
+        "direction": "south-west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "5d867b6f-d703-418c-af43-bee86b07d67b",
+        "direction": "south"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "5d867b6f-d703-418c-af43-bee86b07d67b",
+        "direction": "south-east"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "5d867b6f-d703-418c-af43-bee86b07d67b",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "5d867b6f-d703-418c-af43-bee86b07d67b",
+        "direction": "north-east"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "5d867b6f-d703-418c-af43-bee86b07d67b",
+        "direction": "north"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Right Punch",
+        "animation_group_id": "cb6191ac-d329-425b-aefb-76bba2f4a5ae",
+        "direction": "north-east"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Right Punch",
+        "animation_group_id": "cb6191ac-d329-425b-aefb-76bba2f4a5ae",
+        "direction": "south-west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-16T16:57:57.112467+00:00"
+}

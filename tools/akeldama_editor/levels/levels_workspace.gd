@@ -1,6 +1,7 @@
 extends VBoxContainer
 ## Coordinates editor controls and file dialogs; no gameplay dependencies.
 const Document = preload("res://levels/map_document.gd")
+const MapLayer = preload("res://features/world/map_layer.gd")
 const Sidebar = preload("res://levels/tools_sidebar.gd")
 var sidebar: TabContainer
 const Canvas = preload("res://levels/map_canvas.gd")
@@ -24,7 +25,7 @@ func _ready() -> void:
 	_button(toolbar, "Undo", func() -> void: document.undo(); _refresh())
 	_button(toolbar, "Redo", func() -> void: document.redo(); _refresh())
 	var brush := OptionButton.new()
-	for text in ["Grass", "Water", "Tile", "Erase", "Spawn"]:
+	for text in ["Grass", "Water", "Tile", "Erase", "Spawn", "Inspect"]:
 		brush.add_item(text)
 	toolbar.add_child(brush)
 	brush.item_selected.connect(func(index: int) -> void: canvas.brush = brush.get_item_text(index))
@@ -53,6 +54,14 @@ func _ready() -> void:
 	body.add_child(canvas)
 	sidebar = Sidebar.new()
 	sidebar.document = document
+	sidebar.inspect_requested.connect(func() -> void:
+		brush.select(5)
+		canvas.brush = "Inspect")
+	sidebar.painting_requested.connect(func() -> void:
+		if canvas.brush == "Inspect":
+			brush.select(0 if document.terrain.layers[document.active_layer].kind == MapLayer.Kind.TERRAIN else 2)
+			canvas.brush = brush.get_item_text(brush.selected))
+	canvas.inspected.connect(sidebar.inspect)
 	sidebar.changed.connect(_refresh)
 	sidebar.object_selected.connect(func(definition: Resource) -> void: canvas.selected_object = definition)
 	sidebar.tile_selected.connect(func(tile: Vector2i) -> void: canvas.selected_tile = tile)

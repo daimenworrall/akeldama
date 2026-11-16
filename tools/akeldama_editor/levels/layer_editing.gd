@@ -1,6 +1,7 @@
 extends RefCounted
 ## Mutations of the layer stack share document history with tile painting.
 const Layer = preload("res://features/world/map_layer.gd")
+const Identity = preload("res://features/world/objects/entity_identity.gd")
 
 static func add(document: RefCounted) -> void:
 	document.checkpoint()
@@ -17,6 +18,8 @@ static func duplicate_layer(document: RefCounted) -> void:
 	document.checkpoint()
 	var copy: Layer = layer.duplicate(true)
 	copy.title += " copy"
+	for placed in copy.objects:
+		placed.entity_id = Identity.create()
 	document.terrain.layers.insert(document.active_layer + 1, copy)
 	document.active_layer += 1
 	document.dirty = true

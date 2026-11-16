@@ -7,6 +7,10 @@ const TerrainMovement = preload("res://features/world/terrain_movement.gd")
 @export_range(1.0, 512.0) var speed := 192.0
 @onready var visual: PlayerVisual = $Visual
 var _facing := Vector2.DOWN
+var movement_enabled := true
+
+func facing() -> Vector2:
+	return _facing
 
 func _ready() -> void:
 	visual.global_position = global_position.round()
@@ -15,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	advance_movement(delta)
 
 func advance_movement(delta: float) -> void:
-	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down") if movement_enabled else Vector2.ZERO
 	if direction != Vector2.ZERO:
 		_facing = direction
 	var start := position

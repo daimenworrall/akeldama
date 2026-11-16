@@ -13,11 +13,12 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("player", "tile_grid")]
+[node name="World" type="Node2D" parent="." node_paths=PackedStringArray("player", "tile_grid", "pause_layer")]
 script = ExtResource("8")
 terrain = ExtResource("7")
 player = NodePath("Player")
 tile_grid = NodePath("TileGrid")
+pause_layer = NodePath("../PauseLayer")
 
 [node name="TileGrid" type="TileMapLayer" parent="World"]
 position = Vector2(-32, -32)

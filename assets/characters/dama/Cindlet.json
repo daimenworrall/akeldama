@@ -1,0 +1,117 @@
+{
+  "character": {
+    "id": "0a8cf8e4-4a3a-4e38-a0ba-8f947e0345ea",
+    "name": "Idle",
+    "prompt": "A small fire crocodile starter creature for a Nintendo DS-era creature-catching RPG set during a biblical apocalypse. Chunky rounded body, oversized head, short legs, tiny arms, a broad blunt snout, and two small visible teeth. dark crimson scales, a pale ash-coloured face and belly, and glowing ember-red cracks across its body. cute and Endearing but slightly unsettling, with a simple, recognisable silhouette. Compact overworld pixel art, crisp pixel clusters, clear dark outlines, limited colours, and minimal shading. Full body, centred, facing forward, transparent background. Exactly two arms, two legs, and one short crocodile tail. No wings, horns, clothing, accessories, or scenery.",
+    "size": {
+      "width": 64,
+      "height": 64
+    },
+    "directions": 8,
+    "view": "low top-down"
+  },
+  "spritesheet": {
+    "path": "Cindlet-Idle.png",
+    "cell_size": {
+      "width": 76,
+      "height": 76
+    },
+    "sheet_size": {
+      "width": 684,
+      "height": 760
+    },
+    "columns": 9,
+    "pivot": "cell-center",
+    "rows": [
+      {
+        "row": 0,
+        "type": "rotations",
+        "frame_count": 8,
+        "directions": [
+          "south",
+          "south-east",
+          "east",
+          "north-east",
+          "north",
+          "north-west",
+          "west",
+          "south-west"
+        ]
+      },
+      {
+        "row": 1,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Right Punch",
+        "animation_group_id": "22f6bb4a-7ea8-4612-91e4-e656b70b783a",
+        "direction": "north-east"
+      },
+      {
+        "row": 2,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Right Punch",
+        "animation_group_id": "22f6bb4a-7ea8-4612-91e4-e656b70b783a",
+        "direction": "south-west"
+      },
+      {
+        "row": 3,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "4521957f-4099-45a7-9913-90e4a8e14957",
+        "direction": "south"
+      },
+      {
+        "row": 4,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "4521957f-4099-45a7-9913-90e4a8e14957",
+        "direction": "south-east"
+      },
+      {
+        "row": 5,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "4521957f-4099-45a7-9913-90e4a8e14957",
+        "direction": "east"
+      },
+      {
+        "row": 6,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "4521957f-4099-45a7-9913-90e4a8e14957",
+        "direction": "north-east"
+      },
+      {
+        "row": 7,
+        "type": "animation",
+        "frame_count": 8,
+        "animation": "Walking",
+        "animation_group_id": "4521957f-4099-45a7-9913-90e4a8e14957",
+        "direction": "north"
+      },
+      {
+        "row": 8,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Mouth Attack",
+        "animation_group_id": "bb4c8fe0-caf2-499a-862e-d86817c2b70c",
+        "direction": "north-east"
+      },
+      {
+        "row": 9,
+        "type": "animation",
+        "frame_count": 9,
+        "animation": "Mouth Attack",
+        "animation_group_id": "bb4c8fe0-caf2-499a-862e-d86817c2b70c",
+        "direction": "south-west"
+      }
+    ]
+  },
+  "export_version": "1.0",
+  "export_date": "2026-11-16T16:57:41.286422+00:00"
+}

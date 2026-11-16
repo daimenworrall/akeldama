@@ -1,0 +1,55 @@
+extends SceneTree
+const Catalog = preload("res://features/story/content/demo_story.tres")
+const Map = preload("res://features/world/maps/demo.tres")
+const Journal = preload("res://features/quests/quest_journal.gd")
+const Session = preload("res://features/dialogue/conversation_session.gd")
+const Save = preload("res://features/quests/quest_save.gd")
+const Validation = preload("res://features/story/story_validation.gd")
+const TEST_PATH := "user://story_smoke_progress.json"
+
+func _initialize() -> void:
+	var ids := PackedStringArray()
+	for layer in Map.layers:
+		for placed in layer.objects:
+			assert(not placed.entity_id.is_empty() and placed.entity_id not in ids)
+			ids.append(placed.entity_id)
+	assert(Validation.errors(Catalog, ids).is_empty())
+	var journal := Journal.new()
+	journal.catalog = Catalog
+	var session := Session.new()
+	session.journal = journal
+	var professor = Catalog.conversation("professor_intro")
+	journal.interact("demo-village-noticeboard")
+	assert(journal.state("read_notice") == "available", "Earlier interactions should not count")
+	assert(session.begin(professor) and session.current.id == "offer")
+	assert(session.choose(2) and session.current == null, "Decline must end without starting quest")
+	assert(journal.state("read_notice") == "available")
+	assert(session.begin(professor) and session.choose(1))
+	assert(session.current.id == "directions" and session.choose(0))
+	assert(session.current.id == "offer" and session.choose(0))
+	assert(journal.state("read_notice") == "active")
+	assert(not journal.start("read_notice") and not journal.complete("read_notice"))
+	assert(session.begin(professor) and session.current.id == "active")
+	journal.interact("wrong-instance")
+	assert(journal.state("read_notice") == "active")
+	journal.interact("demo-village-noticeboard")
+	journal.interact("demo-village-noticeboard")
+	assert(journal.state("read_notice") == "ready")
+	assert(session.begin(professor) and session.current.id == "ready")
+	assert(session.choose(0) and session.current.id == "thanks")
+	assert(journal.state("read_notice") == "completed")
+	assert(not journal.complete("read_notice"), "Turn-in must be idempotent")
+	assert(session.begin(professor) and session.current.id == "done")
+	assert(Save.write(journal, TEST_PATH) == OK)
+	var restored := Journal.new()
+	restored.catalog = Catalog
+	Save.load_into(restored, TEST_PATH)
+	assert(restored.state("read_notice") == "completed")
+	restored.restore({"version": 1, "progress": [], "completed": {}})
+	assert(restored.state("read_notice") == "available")
+	DirAccess.remove_absolute(TEST_PATH)
+	var broken = Catalog.duplicate(true)
+	broken.conversations[0].nodes[0].choices[0].next_node = "missing-node"
+	assert(not Validation.errors(broken, ids).is_empty())
+	print("PASS: story references, branching choices, quest gating, ordered interaction, idempotent completion, persistence and invalid-content detection")
+	quit()

@@ -2,6 +2,7 @@ extends RefCounted
 ## Editable map state, history, validation and resource persistence.
 const Movement = preload("res://features/world/terrain_movement.gd")
 const Layer = preload("res://features/world/map_layer.gd")
+const Identity = preload("res://features/world/objects/entity_identity.gd")
 var active_layer := 0
 const Terrain = preload("res://features/world/terrain_map.gd")
 var terrain: Terrain
@@ -35,6 +36,7 @@ func open(file_path: String) -> Error:
 	return OK
 
 func save(file_path: String) -> Error:
+	Identity.ensure_ids(terrain)
 	if not validation_error().is_empty():
 		return ERR_INVALID_DATA
 	var error := ResourceSaver.save(terrain, file_path)
@@ -90,9 +92,13 @@ func validation_error() -> String:
 		for x in range(-1, width):
 			if terrain.grass_mask(terrain.origin + Vector2i(x, y)) in [6, 9]:
 				return "Diagonal-only grass at %s: connect or erase a corner." % (terrain.origin + Vector2i(x, y))
+	var ids := {}
 	for layer in terrain.layers:
 		if layer.kind == Layer.Kind.OBJECTS:
 			for placed in layer.objects:
+				if ids.has(placed.entity_id) and not placed.entity_id.is_empty():
+					return "Duplicate entity ID: " + placed.entity_id
+				ids[placed.entity_id] = true
 				if placed.definition == null or placed.definition.texture == null:
 					return "Object is missing its definition or artwork."
 				var definition = placed.definition
@@ -121,6 +127,8 @@ func _ensure_layers() -> void:
 		base.kind = Layer.Kind.TERRAIN
 		terrain.layers.append(base)
 	active_layer = 0
+	if Identity.ensure_ids(terrain):
+		dirty = true
 
 func paint_tile(cell: Vector2i, atlas: Vector2i, erase: bool) -> void:
 	var layer: Layer = terrain.layers[active_layer]

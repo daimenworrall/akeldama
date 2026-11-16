@@ -3,6 +3,12 @@ extends Resource
 const Definition = preload("res://features/world/objects/object_definition.gd")
 @export var definition: Definition
 @export var cell := Vector2i.ZERO
+@export var entity_id := ""
+@export var display_name := ""
+@export var conversation_id := ""
+
+func interaction_position() -> Vector2:
+	return world_origin() + definition.depth_anchor
 
 func world_origin() -> Vector2:
 	return Vector2(cell * 64) - Vector2(32, 32) + definition.visual_offset

@@ -1,0 +1,287 @@
+{
+ "frames": [
+  {
+   "filename": "flamethrower-diagonal 0.png",
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  },
+  {
+   "filename": "flamethrower-diagonal 1.png",
+   "frame": {
+    "x": 112,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  },
+  {
+   "filename": "flamethrower-diagonal 2.png",
+   "frame": {
+    "x": 224,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  },
+  {
+   "filename": "flamethrower-diagonal 3.png",
+   "frame": {
+    "x": 336,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  },
+  {
+   "filename": "flamethrower-diagonal 4.png",
+   "frame": {
+    "x": 0,
+    "y": 112,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  },
+  {
+   "filename": "flamethrower-diagonal 5.png",
+   "frame": {
+    "x": 112,
+    "y": 112,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  },
+  {
+   "filename": "flamethrower-diagonal 6.png",
+   "frame": {
+    "x": 224,
+    "y": 112,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  },
+  {
+   "filename": "flamethrower-diagonal 7.png",
+   "frame": {
+    "x": 336,
+    "y": 112,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  },
+  {
+   "filename": "flamethrower-diagonal 8.png",
+   "frame": {
+    "x": 0,
+    "y": 224,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  },
+  {
+   "filename": "flamethrower-diagonal 9.png",
+   "frame": {
+    "x": 112,
+    "y": 224,
+    "w": 112,
+    "h": 112
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 112,
+    "h": 112
+   },
+   "sourceSize": {
+    "w": 112,
+    "h": 112
+   },
+   "pivot": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "duration": 83
+  }
+ ],
+ "meta": {
+  "app": "PixelLab VFX Creator",
+  "image": "flamethrower-diagonal.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 448,
+   "h": 336
+  },
+  "scale": "1",
+  "anchor": {
+   "kind": "origin",
+   "x": 56,
+   "y": 56
+  },
+  "frameTags": [
+   {
+    "name": "flamethrower-diagonal",
+    "from": 0,
+    "to": 9,
+    "direction": "forward"
+   }
+  ]
+ }
+}
