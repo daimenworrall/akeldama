@@ -1,7 +1,7 @@
 extends VBoxContainer
 ## Story selection, forms and validated save; map and story histories stay separate.
 const Document = preload("res://story/story_document.gd")
-const Fields = preload("res://story/story_fields.gd")
+const Fields = preload("res://ui/content_fields.gd")
 const QuestForm = preload("res://story/quest_form.gd")
 const ConversationForm = preload("res://story/conversation_form.gd")
 const Preview = preload("res://story/conversation_preview.gd")

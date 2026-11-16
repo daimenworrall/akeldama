@@ -23,6 +23,16 @@ script = ExtResource("Choice")
 text = "Maybe later."
 
 [sub_resource type="Resource" id="Resource_s8lb6"]
+script = ExtResource("Choice")
+text = "Let's have a test battle."
+action = "battle"
+
+[sub_resource type="Resource" id="Resource_0t4ua"]
+script = ExtResource("Choice")
+text = "Please restore my Dama."
+action = "heal_party"
+
+[sub_resource type="Resource" id="Resource_w5qdb"]
 script = ExtResource("Node")
 id = "offer"
 speaker = "Professor"
@@ -30,43 +40,43 @@ text = "Would you read the village noticeboard and report back to me?"
 entry = true
 condition_quest = "read_notice"
 condition_state = "available"
-choices = Array[ExtResource("Choice")]([SubResource("Resource_s5xa1"), SubResource("Resource_aa2rk"), SubResource("Resource_8v38k")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_s5xa1"), SubResource("Resource_aa2rk"), SubResource("Resource_8v38k"), SubResource("Resource_s8lb6"), SubResource("Resource_0t4ua")])
 
-[sub_resource type="Resource" id="Resource_0t4ua"]
+[sub_resource type="Resource" id="Resource_i8rsd"]
 script = ExtResource("Choice")
 text = "All right."
 next_node = "offer"
 
-[sub_resource type="Resource" id="Resource_w5qdb"]
+[sub_resource type="Resource" id="Resource_4qtu6"]
 script = ExtResource("Node")
 id = "directions"
 speaker = "Professor"
 text = "The wooden sign is just east of me. Read it, then come back."
-choices = Array[ExtResource("Choice")]([SubResource("Resource_0t4ua")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_i8rsd")])
 
-[sub_resource type="Resource" id="Resource_i8rsd"]
+[sub_resource type="Resource" id="Resource_t1l0u"]
 script = ExtResource("Choice")
 text = "Goodbye."
 
-[sub_resource type="Resource" id="Resource_4qtu6"]
+[sub_resource type="Resource" id="Resource_i0dbl"]
 script = ExtResource("Choice")
 text = "Any other work I can do at the same time?"
 next_node = "side_accepted"
 action = "start"
 action_quest = "record_warning"
 
-[sub_resource type="Resource" id="Resource_t1l0u"]
+[sub_resource type="Resource" id="Resource_x3gkd"]
 script = ExtResource("Node")
 id = "accepted"
 speaker = "Professor"
 text = "Thank you. The notice may explain what happened here."
-choices = Array[ExtResource("Choice")]([SubResource("Resource_i8rsd"), SubResource("Resource_4qtu6")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_t1l0u"), SubResource("Resource_i0dbl")])
 
-[sub_resource type="Resource" id="Resource_i0dbl"]
+[sub_resource type="Resource" id="Resource_xt51p"]
 script = ExtResource("Choice")
 text = "Goodbye."
 
-[sub_resource type="Resource" id="Resource_x3gkd"]
+[sub_resource type="Resource" id="Resource_ovguf"]
 script = ExtResource("Choice")
 text = "I also recorded the evacuation warning."
 next_node = "side_thanks"
@@ -75,14 +85,24 @@ condition_state = "ready"
 action = "complete"
 action_quest = "record_warning"
 
-[sub_resource type="Resource" id="Resource_xt51p"]
+[sub_resource type="Resource" id="Resource_wnvb4"]
 script = ExtResource("Choice")
 text = "Any other work I can do at the same time?"
 next_node = "side_accepted"
 action = "start"
 action_quest = "record_warning"
 
-[sub_resource type="Resource" id="Resource_ovguf"]
+[sub_resource type="Resource" id="Resource_rrgk6"]
+script = ExtResource("Choice")
+text = "Let's have a test battle."
+action = "battle"
+
+[sub_resource type="Resource" id="Resource_ksqxs"]
+script = ExtResource("Choice")
+text = "Please restore my Dama."
+action = "heal_party"
+
+[sub_resource type="Resource" id="Resource_lw132"]
 script = ExtResource("Node")
 id = "active"
 speaker = "Professor"
@@ -90,9 +110,9 @@ text = "Have a look at the wooden sign east of me, then return."
 entry = true
 condition_quest = "read_notice"
 condition_state = "active"
-choices = Array[ExtResource("Choice")]([SubResource("Resource_i0dbl"), SubResource("Resource_x3gkd"), SubResource("Resource_xt51p")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_xt51p"), SubResource("Resource_ovguf"), SubResource("Resource_wnvb4"), SubResource("Resource_rrgk6"), SubResource("Resource_ksqxs")])
 
-[sub_resource type="Resource" id="Resource_wnvb4"]
+[sub_resource type="Resource" id="Resource_g3cao"]
 script = ExtResource("Choice")
 text = "I read the notice."
 next_node = "thanks"
@@ -101,11 +121,11 @@ condition_state = "ready"
 action = "complete"
 action_quest = "read_notice"
 
-[sub_resource type="Resource" id="Resource_rrgk6"]
+[sub_resource type="Resource" id="Resource_3llks"]
 script = ExtResource("Choice")
 text = "Maybe later."
 
-[sub_resource type="Resource" id="Resource_ksqxs"]
+[sub_resource type="Resource" id="Resource_exlvg"]
 script = ExtResource("Choice")
 text = "I also recorded the evacuation warning."
 next_node = "side_thanks"
@@ -114,14 +134,24 @@ condition_state = "ready"
 action = "complete"
 action_quest = "record_warning"
 
-[sub_resource type="Resource" id="Resource_lw132"]
+[sub_resource type="Resource" id="Resource_hpn27"]
 script = ExtResource("Choice")
 text = "Any other work I can do at the same time?"
 next_node = "side_accepted"
 action = "start"
 action_quest = "record_warning"
 
-[sub_resource type="Resource" id="Resource_g3cao"]
+[sub_resource type="Resource" id="Resource_phfrx"]
+script = ExtResource("Choice")
+text = "Let's have a test battle."
+action = "battle"
+
+[sub_resource type="Resource" id="Resource_ss0jl"]
+script = ExtResource("Choice")
+text = "Please restore my Dama."
+action = "heal_party"
+
+[sub_resource type="Resource" id="Resource_vlcmr"]
 script = ExtResource("Node")
 id = "ready"
 speaker = "Professor"
@@ -129,24 +159,24 @@ text = "You have read the notice. What did it say?"
 entry = true
 condition_quest = "read_notice"
 condition_state = "ready"
-choices = Array[ExtResource("Choice")]([SubResource("Resource_wnvb4"), SubResource("Resource_rrgk6"), SubResource("Resource_ksqxs"), SubResource("Resource_lw132")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_g3cao"), SubResource("Resource_3llks"), SubResource("Resource_exlvg"), SubResource("Resource_hpn27"), SubResource("Resource_phfrx"), SubResource("Resource_ss0jl")])
 
-[sub_resource type="Resource" id="Resource_3llks"]
+[sub_resource type="Resource" id="Resource_0srva"]
 script = ExtResource("Choice")
 text = "Goodbye."
 
-[sub_resource type="Resource" id="Resource_exlvg"]
+[sub_resource type="Resource" id="Resource_ultxt"]
 script = ExtResource("Node")
 id = "thanks"
 speaker = "Professor"
 text = "Evacuation routes... that confirms my fears. Thank you for your help."
-choices = Array[ExtResource("Choice")]([SubResource("Resource_3llks")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_0srva")])
 
-[sub_resource type="Resource" id="Resource_hpn27"]
+[sub_resource type="Resource" id="Resource_sms2h"]
 script = ExtResource("Choice")
 text = "Goodbye."
 
-[sub_resource type="Resource" id="Resource_phfrx"]
+[sub_resource type="Resource" id="Resource_74cib"]
 script = ExtResource("Choice")
 text = "I also recorded the evacuation warning."
 next_node = "side_thanks"
@@ -155,14 +185,14 @@ condition_state = "ready"
 action = "complete"
 action_quest = "record_warning"
 
-[sub_resource type="Resource" id="Resource_ss0jl"]
+[sub_resource type="Resource" id="Resource_1oibu"]
 script = ExtResource("Choice")
 text = "What should I do next?"
 next_node = "followup_accepted"
 action = "start"
 action_quest = "confirm_notice"
 
-[sub_resource type="Resource" id="Resource_vlcmr"]
+[sub_resource type="Resource" id="Resource_kknuk"]
 script = ExtResource("Choice")
 text = "I confirmed the evacuation instructions."
 next_node = "followup_thanks"
@@ -171,14 +201,24 @@ condition_state = "ready"
 action = "complete"
 action_quest = "confirm_notice"
 
-[sub_resource type="Resource" id="Resource_0srva"]
+[sub_resource type="Resource" id="Resource_itcki"]
 script = ExtResource("Choice")
 text = "Any other work I can do at the same time?"
 next_node = "side_accepted"
 action = "start"
 action_quest = "record_warning"
 
-[sub_resource type="Resource" id="Resource_ultxt"]
+[sub_resource type="Resource" id="Resource_dd1v0"]
+script = ExtResource("Choice")
+text = "Let's have a test battle."
+action = "battle"
+
+[sub_resource type="Resource" id="Resource_hqx10"]
+script = ExtResource("Choice")
+text = "Please restore my Dama."
+action = "heal_party"
+
+[sub_resource type="Resource" id="Resource_t7sd0"]
 script = ExtResource("Node")
 id = "done"
 speaker = "Professor"
@@ -186,77 +226,77 @@ text = "Your report was useful. Stay safe out there."
 entry = true
 condition_quest = "read_notice"
 condition_state = "completed"
-choices = Array[ExtResource("Choice")]([SubResource("Resource_hpn27"), SubResource("Resource_phfrx"), SubResource("Resource_ss0jl"), SubResource("Resource_vlcmr"), SubResource("Resource_0srva")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_sms2h"), SubResource("Resource_74cib"), SubResource("Resource_1oibu"), SubResource("Resource_kknuk"), SubResource("Resource_itcki"), SubResource("Resource_dd1v0"), SubResource("Resource_hqx10")])
 
-[sub_resource type="Resource" id="Resource_sms2h"]
+[sub_resource type="Resource" id="Resource_qrabc"]
 script = ExtResource("Choice")
 text = "Goodbye."
 
-[sub_resource type="Resource" id="Resource_74cib"]
+[sub_resource type="Resource" id="Resource_afbf2"]
 script = ExtResource("Node")
 id = "side_accepted"
 speaker = "Professor"
 text = "Please record the evacuation warning while you are there. You can work on both requests together."
-choices = Array[ExtResource("Choice")]([SubResource("Resource_sms2h")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_qrabc")])
 
-[sub_resource type="Resource" id="Resource_1oibu"]
+[sub_resource type="Resource" id="Resource_tumri"]
 script = ExtResource("Choice")
 text = "Goodbye."
 
-[sub_resource type="Resource" id="Resource_kknuk"]
+[sub_resource type="Resource" id="Resource_cb6qd"]
 script = ExtResource("Node")
 id = "side_thanks"
 speaker = "Professor"
 text = "Thank you. I have your record of the evacuation warning."
-choices = Array[ExtResource("Choice")]([SubResource("Resource_1oibu")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_tumri")])
 
-[sub_resource type="Resource" id="Resource_itcki"]
+[sub_resource type="Resource" id="Resource_6gwkl"]
 script = ExtResource("Choice")
 text = "Goodbye."
 
-[sub_resource type="Resource" id="Resource_dd1v0"]
+[sub_resource type="Resource" id="Resource_5jvcb"]
 script = ExtResource("Node")
 id = "followup_accepted"
 speaker = "Professor"
 text = "Now that I have your first report, please revisit the noticeboard and confirm the route instructions."
-choices = Array[ExtResource("Choice")]([SubResource("Resource_itcki")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_6gwkl")])
 
-[sub_resource type="Resource" id="Resource_hqx10"]
+[sub_resource type="Resource" id="Resource_aq1y5"]
 script = ExtResource("Choice")
 text = "Goodbye."
 
-[sub_resource type="Resource" id="Resource_t7sd0"]
+[sub_resource type="Resource" id="Resource_cmk87"]
 script = ExtResource("Node")
 id = "followup_thanks"
 speaker = "Professor"
 text = "That confirms it. We can prepare the evacuation route."
-choices = Array[ExtResource("Choice")]([SubResource("Resource_hqx10")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_aq1y5")])
 
-[sub_resource type="Resource" id="Resource_qrabc"]
+[sub_resource type="Resource" id="Resource_duhut"]
 script = ExtResource("Conversation")
 id = "professor_intro"
 title = "Professor — village notice"
-nodes = Array[ExtResource("Node")]([SubResource("Resource_s8lb6"), SubResource("Resource_w5qdb"), SubResource("Resource_t1l0u"), SubResource("Resource_ovguf"), SubResource("Resource_g3cao"), SubResource("Resource_exlvg"), SubResource("Resource_ultxt"), SubResource("Resource_74cib"), SubResource("Resource_kknuk"), SubResource("Resource_dd1v0"), SubResource("Resource_t7sd0")])
+nodes = Array[ExtResource("Node")]([SubResource("Resource_w5qdb"), SubResource("Resource_4qtu6"), SubResource("Resource_x3gkd"), SubResource("Resource_lw132"), SubResource("Resource_vlcmr"), SubResource("Resource_ultxt"), SubResource("Resource_t7sd0"), SubResource("Resource_afbf2"), SubResource("Resource_cb6qd"), SubResource("Resource_5jvcb"), SubResource("Resource_cmk87")])
 
-[sub_resource type="Resource" id="Resource_afbf2"]
+[sub_resource type="Resource" id="Resource_tvfkw"]
 script = ExtResource("Choice")
 text = "Goodbye."
 
-[sub_resource type="Resource" id="Resource_tumri"]
+[sub_resource type="Resource" id="Resource_yncf4"]
 script = ExtResource("Node")
 id = "notice"
 speaker = "Village noticeboard"
 text = "VILLAGE NOTICE: Keep the eastern crossing clear. Follow marked evacuation routes. Report unusual creatures to the professor."
 entry = true
-choices = Array[ExtResource("Choice")]([SubResource("Resource_afbf2")])
+choices = Array[ExtResource("Choice")]([SubResource("Resource_tvfkw")])
 
-[sub_resource type="Resource" id="Resource_cb6qd"]
+[sub_resource type="Resource" id="Resource_i1jlo"]
 script = ExtResource("Conversation")
 id = "village_notice"
 title = "Village noticeboard"
-nodes = Array[ExtResource("Node")]([SubResource("Resource_tumri")])
+nodes = Array[ExtResource("Node")]([SubResource("Resource_yncf4")])
 
-[sub_resource type="Resource" id="Resource_6gwkl"]
+[sub_resource type="Resource" id="Resource_gssjp"]
 script = ExtResource("Quest")
 id = "read_notice"
 title = "Read the village notice"
@@ -265,7 +305,7 @@ targets = PackedStringArray("demo-village-noticeboard")
 prerequisites = PackedStringArray()
 objective_texts = PackedStringArray("Read the village noticeboard.")
 
-[sub_resource type="Resource" id="Resource_5jvcb"]
+[sub_resource type="Resource" id="Resource_4mxcv"]
 script = ExtResource("Quest")
 id = "record_warning"
 title = "Record the evacuation warning"
@@ -274,7 +314,7 @@ targets = PackedStringArray("demo-village-noticeboard")
 prerequisites = PackedStringArray()
 objective_texts = PackedStringArray("Record the warning on the village noticeboard.")
 
-[sub_resource type="Resource" id="Resource_aq1y5"]
+[sub_resource type="Resource" id="Resource_8nl3x"]
 script = ExtResource("Quest")
 id = "confirm_notice"
 title = "Confirm the evacuation route"
@@ -285,5 +325,5 @@ objective_texts = PackedStringArray("Revisit the noticeboard and confirm the ins
 
 [resource]
 script = ExtResource("Catalog")
-quests = Array[ExtResource("Quest")]([SubResource("Resource_6gwkl"), SubResource("Resource_5jvcb"), SubResource("Resource_aq1y5")])
-conversations = Array[ExtResource("Conversation")]([SubResource("Resource_qrabc"), SubResource("Resource_cb6qd")])
+quests = Array[ExtResource("Quest")]([SubResource("Resource_gssjp"), SubResource("Resource_4mxcv"), SubResource("Resource_8nl3x")])
+conversations = Array[ExtResource("Conversation")]([SubResource("Resource_duhut"), SubResource("Resource_i1jlo")])

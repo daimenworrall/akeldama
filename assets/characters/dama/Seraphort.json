@@ -42,7 +42,7 @@
         "row": 1,
         "type": "animation",
         "frame_count": 9,
-        "animation": "Lean forward and open the mouth wide in a sharp, sudden wind-up motion, then spring back to the upright starting pose with the mouth snapping shut.",
+        "animation": "special",
         "animation_group_id": "0b1d6378-6da7-4050-a08c-ba3671234305",
         "direction": "north-east"
       },
@@ -50,7 +50,7 @@
         "row": 2,
         "type": "animation",
         "frame_count": 9,
-        "animation": "Lean forward and open the mouth wide in a sharp, sudden wind-up motion, then spring back to the upright starting pose with the mouth snapping shut.",
+        "animation": "special",
         "animation_group_id": "0b1d6378-6da7-4050-a08c-ba3671234305",
         "direction": "south-west"
       },
@@ -98,7 +98,7 @@
         "row": 8,
         "type": "animation",
         "frame_count": 8,
-        "animation": "Right Punch",
+        "animation": "physical",
         "animation_group_id": "cb6191ac-d329-425b-aefb-76bba2f4a5ae",
         "direction": "north-east"
       },
@@ -106,12 +106,12 @@
         "row": 9,
         "type": "animation",
         "frame_count": 8,
-        "animation": "Right Punch",
+        "animation": "physical",
         "animation_group_id": "cb6191ac-d329-425b-aefb-76bba2f4a5ae",
         "direction": "south-west"
       }
     ]
   },
   "export_version": "1.0",
-  "export_date": "2026-11-16T16:57:57.112467+00:00"
+  "export_date": "2026-11-16T17:36:25.906439+00:00"
 }

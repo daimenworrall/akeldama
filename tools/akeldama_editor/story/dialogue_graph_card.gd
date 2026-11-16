@@ -18,7 +18,7 @@ func refresh() -> void:
 		var choice = data.choices[index]
 		var text: String = choice.text
 		if not choice.action.is_empty():
-			text += "\n→ %s quest: %s" % [choice.action, choice.action_quest]
+			text += "\n→ " + ({"battle": "Battle NPC team", "heal_party": "Restore player party"}.get(choice.action, "%s quest: %s" % [choice.action, choice.action_quest]))
 		if not choice.condition_state.is_empty():
 			text += "\nIf %s is %s" % [choice.condition_quest, choice.condition_state]
 		if choice.next_node.is_empty():

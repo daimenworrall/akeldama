@@ -2,7 +2,7 @@ extends VBoxContainer
 ## Coordinates graph editing and a selected-card inspector, without runtime rules.
 signal edited
 signal rebuild_requested
-const Fields = preload("res://story/story_fields.gd")
+const Fields = preload("res://ui/content_fields.gd")
 const Card = preload("res://story/dialogue_graph_card.gd")
 const Inspector = preload("res://story/dialogue_inspector.gd")
 const DialogueNode = preload("res://features/dialogue/dialogue_node.gd")

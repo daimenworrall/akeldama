@@ -23,7 +23,7 @@ func _run() -> void:
 			if not choice.next_node.is_empty():
 				connections += 1
 	assert(graph.get_connection_list().size() == connections)
-	assert(graph.get_node("Card0").get_output_port_count() == 3, "Output count: %s" % graph.get_node("Card0").get_output_port_count())
+	assert(graph.get_node("Card0").get_output_port_count() == form.conversation.nodes[0].choices.size())
 	graph.node_selected.emit(graph.get_node("Card1"))
 	assert(form.selected_node == 1 and form.inspector.selected_node == 1)
 	graph.connection_request.emit(&"Card0", 1, &"Card2", 0)

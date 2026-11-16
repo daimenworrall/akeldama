@@ -246,3 +246,62 @@ tracked-quest selection is repaired and the reset saves automatically. Cancel
 leaves progress unchanged. This is a temporary testing control.
 
 Run game `tests/quest_reset_smoke.gd` for dependency cascade and persistence checks.
+
+## Dama, types and moves
+
+Select **Dama** in workspace navigation. Its top tabs are **Dama**, **Types** and
+**Moves**; the searchable list selects the record being edited. **New** and
+**Duplicate** create independent records with fresh stable IDs. Names remain
+editable. **Save Dama content**, Undo and Redo operate on this catalog independently
+of Levels and Story. Closing the application warns about unsaved changes in any
+workspace. Deleting content is blocked while another record references it.
+
+Species panels separate **Profile**, **Base stats**, **Evolutions** and **Moves**.
+Profile assigns the original sprite sheet and up to two types, with direction/clip
+preview controls. Base stats contains health, attack, defense, special attack,
+special defense and speed. Evolutions define target species and minimum levels;
+multiple targets create branches. Moves defines the level-up learning schedule,
+including starting moves at level 1. Save rejects missing references, duplicate
+entries, evolution cycles and invalid stat/level values.
+
+Types edits damage **received** from each attacking type: 0 is immune, below 1
+resists, 1 is neutral, above 1 is weak. Dual-type values multiply. The incoming
+chart is the sole source of truth, so weakness and resistance lists cannot conflict.
+
+Move rules configure type, damage category, base power, accuracy, Always hits,
+maximum **mana points** (per-move uses) and priority. **Animation** assigns an
+optional PNG/JSON effect and shows its clips with Replay, looping and FPS controls.
+FPS 0 respects source timing. Flamethrower and Slash are configured examples.
+Species stats, levels, types and move numbers are editable sample balance values.
+
+Content lives in `features/dama/content/dama_catalog.tres`; full data semantics and
+ownership are documented in `features/dama/README.md`. No battle flow is implemented
+by this authoring workspace. Add new PNG/JSON pairs to the corresponding asset
+folders and relaunch the tool to import them before assigning them.
+
+## NPC teams and test battles
+
+Select **Teams** in workspace navigation. New/Duplicate/Delete, Undo/Redo and
+**Save NPC teams** operate on `features/teams/content/npc_teams.tres`. Each team
+contains 1–6 Dama, with species, level, nickname and up to four explicit moves.
+Automatic move sets use the latest four learned at that level. Explicit moves are
+trainer overrides: they must exist, but need not be learned at that level. Save
+Dama content before referencing newly created species or moves in a saved team.
+
+In **Levels → Inspect**, select an NPC instance and assign its **NPC battle team**.
+Save the level separately. Teams cannot be deleted while assigned to a saved or
+currently open level; species/moves used in saved teams are protected from deletion.
+Dama/Teams share content history, while each workspace keeps its own document.
+Closing the editor warns about unsaved teams too.
+
+Conversation response actions include **Battle this NPC's team** and **Restore
+player party**. Battle uses the team on the interacting instance, so conversations
+can be reused by several NPCs. Battle choices are hidden when no team is assigned.
+Conversation preview only reports these actions; it never starts combat or writes
+a player save. These actions end the conversation before opening their game flow.
+
+The professor has a one-Dama test team and battle/heal options in each quest-state
+entry. A separate player Cindlet is initialized in `user://game_save.json` on first
+use; the player party is never authored in Teams. Battles show the player's Dama
+lower-left and the opponent upper-right. See `features/battle/README.md` for battle
+rules, controls, animation roles, save behavior and current limitations.

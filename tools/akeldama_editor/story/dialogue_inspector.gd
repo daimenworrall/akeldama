@@ -2,7 +2,7 @@ extends VBoxContainer
 ## Inspector for the selected dialogue card. Connections are edited on the canvas.
 signal edited
 signal structure_changed
-const Fields = preload("res://story/story_fields.gd")
+const Fields = preload("res://ui/content_fields.gd")
 const ChoiceForm = preload("res://story/choice_form.gd")
 const Choice = preload("res://features/dialogue/dialogue_choice.gd")
 var document: RefCounted

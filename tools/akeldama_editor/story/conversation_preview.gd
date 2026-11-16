@@ -3,7 +3,7 @@ signal node_visited(id: String)
 ## Runs a disposable journal/session so testing never changes game progress.
 const Journal = preload("res://features/quests/quest_journal.gd")
 const Session = preload("res://features/dialogue/conversation_session.gd")
-const Fields = preload("res://story/story_fields.gd")
+const Fields = preload("res://ui/content_fields.gd")
 var journal := Journal.new()
 var session := Session.new()
 var body := VBoxContainer.new()
@@ -21,6 +21,11 @@ func _ready() -> void:
 		if not visible:
 			node_visited.emit(""))
 	session.journal = journal
+	session.party_actions_available = true
+	session.battle_available = true
+	session.action_requested.connect(func(action: String) -> void:
+		_clear_lines()
+		Fields.label(lines, "Battle requested for this NPC's assigned team." if action == "battle" else "Player party restoration requested. Preview does not change game saves."))
 	session.updated.connect(_show_line)
 	session.closed.connect(func() -> void:
 		node_visited.emit("")

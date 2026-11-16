@@ -1,7 +1,7 @@
 extends VBoxContainer
 ## Quest prerequisites use titles in the UI and stable IDs in content.
 signal edited
-const Fields = preload("res://story/story_fields.gd")
+const Fields = preload("res://ui/content_fields.gd")
 var document: RefCounted
 var quest: Resource
 

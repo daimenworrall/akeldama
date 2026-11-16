@@ -2,7 +2,7 @@ extends VBoxContainer
 ## Edits ordered interaction targets through a named-entity picker.
 signal edited
 signal rebuild_requested
-const Fields = preload("res://story/story_fields.gd")
+const Fields = preload("res://ui/content_fields.gd")
 const Prerequisites = preload("res://story/quest_prerequisites_form.gd")
 var document: RefCounted
 var quest: Resource

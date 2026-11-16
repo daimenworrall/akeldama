@@ -9,11 +9,18 @@ const Targets = preload("res://features/world/interaction/interaction_targets.gd
 const CATALOG = preload("res://features/story/content/demo_story.tres")
 const JournalScreen = preload("res://features/quests/ui/quest_journal_screen.gd")
 const Tracker = preload("res://features/quests/ui/quest_tracker.gd")
+const Battle = preload("res://features/battle/battle_controller.gd")
+const Teams = preload("res://features/teams/content/npc_teams.tres")
+const Dama = preload("res://features/dama/content/dama_catalog.tres")
+const Conversation = preload("res://features/dialogue/conversation_definition.gd")
+const DialogueNode = preload("res://features/dialogue/dialogue_node.gd")
 var journal := Journal.new()
 var session := Session.new()
 var view := View.new()
 var journal_screen := JournalScreen.new()
 var tracker := Tracker.new()
+var battle := Battle.new()
+var _interaction_target: Resource
 var player: Node2D
 var terrain: Resource
 var save_path := Save.PATH
@@ -27,6 +34,12 @@ func setup(actor: Node2D, map: Resource) -> void:
 	add_child(tracker)
 	tracker.setup(journal, terrain)
 	add_child(view)
+	add_child(battle)
+	battle.catalog = Dama
+	battle.open_changed.connect(func(open: bool) -> void:
+		player.movement_enabled = not open
+		story_modal_open_changed.emit(open))
+	session.action_requested.connect(_party_action)
 	add_child(journal_screen)
 	journal_screen.setup(journal, terrain)
 	journal_screen.open_changed.connect(func(open: bool) -> void: story_modal_open_changed.emit(open))
@@ -67,6 +80,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if conversation == null:
 		return
 	journal.interact(target.entity_id)
+	_interaction_target = target
+	session.party_actions_available = true
+	session.battle_available = Teams.find_team(target.team_id) != null
 	if session.begin(conversation):
 		player.movement_enabled = false
 	get_viewport().set_input_as_handled()
@@ -75,3 +91,23 @@ func _progress_changed() -> void:
 	var error := Save.write(journal, save_path)
 	if error != OK:
 		push_error("Could not save quest progress: " + error_string(error))
+
+func _party_action(action: String) -> void:
+	if action == "battle":
+		var trainer: String = _interaction_target.display_name if not _interaction_target.display_name.is_empty() else _interaction_target.definition.title
+		var error := battle.launch(Teams.find_team(_interaction_target.team_id), trainer)
+		if not error.is_empty():
+			_notice(error)
+	elif action == "heal_party":
+		_notice(battle.heal_party())
+
+func _notice(text: String) -> void:
+	var node := DialogueNode.new()
+	node.id = "party_notice"
+	node.entry = true
+	node.speaker = _interaction_target.display_name if not _interaction_target.display_name.is_empty() else _interaction_target.definition.title
+	node.text = text
+	var conversation := Conversation.new()
+	conversation.nodes.append(node)
+	session.begin(conversation)
+	player.movement_enabled = false

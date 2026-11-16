@@ -1,0 +1,364 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://features/dama/data/sheet_animation.gd" id="Art"]
+[ext_resource type="Script" path="res://features/dama/data/dama_catalog.gd" id="Catalog"]
+[ext_resource type="Texture2D" path="res://assets/characters/dama/Cindlet.png" id="Cindlet"]
+[ext_resource type="Script" path="res://features/dama/data/level_evolution.gd" id="Evolution"]
+[ext_resource type="Texture2D" path="res://assets/animations/flamethrower.png" id="Flame"]
+[ext_resource type="Script" path="res://features/dama/data/learnset_entry.gd" id="Learn"]
+[ext_resource type="Script" path="res://features/dama/data/move_definition.gd" id="Move"]
+[ext_resource type="Texture2D" path="res://assets/characters/dama/Seraphlare.png" id="Seraphlare"]
+[ext_resource type="Texture2D" path="res://assets/characters/dama/Seraphort.png" id="Seraphort"]
+[ext_resource type="Texture2D" path="res://assets/animations/slash.png" id="Slash"]
+[ext_resource type="Script" path="res://features/dama/data/species_definition.gd" id="Species"]
+[ext_resource type="Script" path="res://features/dama/data/base_stats.gd" id="Stats"]
+[ext_resource type="Script" path="res://features/dama/data/type_definition.gd" id="Type"]
+
+[sub_resource type="Resource" id="Resource_gu3i5"]
+script = ExtResource("Art")
+
+[sub_resource type="Resource" id="Resource_psgls"]
+script = ExtResource("Move")
+id = "tackle"
+title = "Tackle"
+description = "A full-body charge into the target."
+type_id = "neutral"
+mana_points = 35
+animation = SubResource("Resource_gu3i5")
+
+[sub_resource type="Resource" id="Resource_fvb3n"]
+script = ExtResource("Art")
+texture = ExtResource("Flame")
+metadata_path = "res://assets/animations/flamethrower.json"
+clip = "flamethrower-diagonal"
+loop = false
+
+[sub_resource type="Resource" id="Resource_wkrtv"]
+script = ExtResource("Move")
+id = "ember"
+title = "Ember"
+description = "A small burst of searing embers."
+type_id = "fire"
+category = "special"
+mana_points = 25
+animation = SubResource("Resource_fvb3n")
+
+[sub_resource type="Resource" id="Resource_yuhy6"]
+script = ExtResource("Art")
+
+[sub_resource type="Resource" id="Resource_uicd4"]
+script = ExtResource("Move")
+id = "bite"
+title = "Bite"
+description = "A powerful bite with sharp teeth."
+type_id = "neutral"
+power = 60
+mana_points = 25
+animation = SubResource("Resource_yuhy6")
+
+[sub_resource type="Resource" id="Resource_utbga"]
+script = ExtResource("Art")
+texture = ExtResource("Flame")
+metadata_path = "res://assets/animations/flamethrower.json"
+clip = "flamethrower-diagonal"
+loop = false
+
+[sub_resource type="Resource" id="Resource_a4i4u"]
+script = ExtResource("Move")
+id = "flamethrower"
+title = "Flamethrower"
+description = "A sustained stream of scorching fire."
+type_id = "fire"
+category = "special"
+power = 90
+mana_points = 15
+animation = SubResource("Resource_utbga")
+
+[sub_resource type="Resource" id="Resource_8a5fm"]
+script = ExtResource("Art")
+
+[sub_resource type="Resource" id="Resource_2dejp"]
+script = ExtResource("Move")
+id = "wing_strike"
+title = "Wing Strike"
+description = "A sweeping strike with strong wings."
+type_id = "air"
+power = 60
+accuracy = 95.0
+animation = SubResource("Resource_8a5fm")
+
+[sub_resource type="Resource" id="Resource_jrvwc"]
+script = ExtResource("Art")
+texture = ExtResource("Slash")
+metadata_path = "res://assets/animations/slash.json"
+clip = "slash"
+loop = false
+
+[sub_resource type="Resource" id="Resource_bnd8r"]
+script = ExtResource("Move")
+id = "slash"
+title = "Slash"
+description = "A sharp, sweeping slash at the target."
+type_id = "neutral"
+power = 70
+animation = SubResource("Resource_jrvwc")
+
+[sub_resource type="Resource" id="Resource_dwenf"]
+script = ExtResource("Art")
+texture = ExtResource("Cindlet")
+metadata_path = "res://assets/characters/dama/Cindlet.json"
+clip = "idle_south"
+
+[sub_resource type="Resource" id="Resource_vpn06"]
+script = ExtResource("Evolution")
+species_id = "seraphlare"
+
+[sub_resource type="Resource" id="Resource_3laww"]
+script = ExtResource("Learn")
+move_id = "tackle"
+
+[sub_resource type="Resource" id="Resource_axoe8"]
+script = ExtResource("Learn")
+move_id = "ember"
+level = 5
+
+[sub_resource type="Resource" id="Resource_32hpa"]
+script = ExtResource("Learn")
+move_id = "bite"
+level = 10
+
+[sub_resource type="Resource" id="Resource_s8wl7"]
+script = ExtResource("Learn")
+move_id = "slash"
+level = 20
+
+[sub_resource type="Resource" id="Resource_uhsyw"]
+script = ExtResource("Learn")
+move_id = "flamethrower"
+level = 32
+
+[sub_resource type="Resource" id="Resource_yc7cx"]
+script = ExtResource("Stats")
+attack = 52
+defense = 43
+special_attack = 60
+special_defense = 50
+speed = 50
+
+[sub_resource type="Resource" id="Resource_dldxw"]
+script = ExtResource("Species")
+id = "cindlet"
+title = "Cindlet"
+description = "A small fire crocodile with crimson scales, an ash-pale belly and glowing ember cracks."
+types = PackedStringArray("fire")
+stats = SubResource("Resource_yc7cx")
+evolutions = Array[ExtResource("Evolution")]([SubResource("Resource_vpn06")])
+learnset = Array[ExtResource("Learn")]([SubResource("Resource_3laww"), SubResource("Resource_axoe8"), SubResource("Resource_32hpa"), SubResource("Resource_s8wl7"), SubResource("Resource_uhsyw")])
+art = SubResource("Resource_dwenf")
+
+[sub_resource type="Resource" id="Resource_arbn3"]
+script = ExtResource("Art")
+texture = ExtResource("Seraphlare")
+metadata_path = "res://assets/characters/dama/Seraphlare.json"
+clip = "idle_south"
+
+[sub_resource type="Resource" id="Resource_qlqec"]
+script = ExtResource("Evolution")
+species_id = "seraphort"
+level = 36
+
+[sub_resource type="Resource" id="Resource_a7kf5"]
+script = ExtResource("Learn")
+move_id = "tackle"
+
+[sub_resource type="Resource" id="Resource_wwaov"]
+script = ExtResource("Learn")
+move_id = "ember"
+level = 5
+
+[sub_resource type="Resource" id="Resource_m6jbe"]
+script = ExtResource("Learn")
+move_id = "bite"
+level = 10
+
+[sub_resource type="Resource" id="Resource_hfeb8"]
+script = ExtResource("Learn")
+move_id = "slash"
+level = 20
+
+[sub_resource type="Resource" id="Resource_5barv"]
+script = ExtResource("Learn")
+move_id = "flamethrower"
+level = 32
+
+[sub_resource type="Resource" id="Resource_f26ob"]
+script = ExtResource("Stats")
+health = 65
+attack = 72
+defense = 63
+special_attack = 80
+special_defense = 65
+speed = 65
+
+[sub_resource type="Resource" id="Resource_aoysg"]
+script = ExtResource("Species")
+id = "seraphlare"
+title = "Seraphlare"
+description = "Bone shoulder plates and small proto-wings mark this fire crocodile's growing strength."
+types = PackedStringArray("fire")
+stats = SubResource("Resource_f26ob")
+evolutions = Array[ExtResource("Evolution")]([SubResource("Resource_qlqec")])
+learnset = Array[ExtResource("Learn")]([SubResource("Resource_a7kf5"), SubResource("Resource_wwaov"), SubResource("Resource_m6jbe"), SubResource("Resource_hfeb8"), SubResource("Resource_5barv")])
+art = SubResource("Resource_arbn3")
+
+[sub_resource type="Resource" id="Resource_lkttx"]
+script = ExtResource("Art")
+texture = ExtResource("Seraphort")
+metadata_path = "res://assets/characters/dama/Seraphort.json"
+clip = "idle_south"
+
+[sub_resource type="Resource" id="Resource_4bkod"]
+script = ExtResource("Learn")
+move_id = "tackle"
+
+[sub_resource type="Resource" id="Resource_6j523"]
+script = ExtResource("Learn")
+move_id = "ember"
+level = 5
+
+[sub_resource type="Resource" id="Resource_eojem"]
+script = ExtResource("Learn")
+move_id = "bite"
+level = 10
+
+[sub_resource type="Resource" id="Resource_fm5nc"]
+script = ExtResource("Learn")
+move_id = "slash"
+level = 20
+
+[sub_resource type="Resource" id="Resource_vx25p"]
+script = ExtResource("Learn")
+move_id = "flamethrower"
+level = 32
+
+[sub_resource type="Resource" id="Resource_wuclj"]
+script = ExtResource("Learn")
+move_id = "wing_strike"
+level = 36
+
+[sub_resource type="Resource" id="Resource_hcpfx"]
+script = ExtResource("Stats")
+health = 85
+attack = 95
+defense = 90
+special_attack = 105
+special_defense = 85
+speed = 80
+
+[sub_resource type="Resource" id="Resource_k8j0i"]
+script = ExtResource("Species")
+id = "seraphort"
+title = "Seraphort"
+description = "A formidable fire crocodile protected by fortress-like bone armour and powerful wings."
+types = PackedStringArray("fire", "air")
+stats = SubResource("Resource_hcpfx")
+learnset = Array[ExtResource("Learn")]([SubResource("Resource_4bkod"), SubResource("Resource_6j523"), SubResource("Resource_eojem"), SubResource("Resource_fm5nc"), SubResource("Resource_vx25p"), SubResource("Resource_wuclj")])
+art = SubResource("Resource_lkttx")
+
+[sub_resource type="Resource" id="Resource_g7rg3"]
+script = ExtResource("Type")
+id = "neutral"
+title = "Neutral"
+color = Color(0.6784314, 0.7058824, 0.7372549, 1)
+
+[sub_resource type="Resource" id="Resource_3xee5"]
+script = ExtResource("Type")
+id = "fire"
+title = "Fire"
+color = Color(0.89411765, 0.4745098, 0.28235295, 1)
+incoming = Dictionary[String, float]({
+"earth": 2.0,
+"fire": 0.5,
+"ice": 0.5,
+"nature": 0.5,
+"water": 2.0
+})
+
+[sub_resource type="Resource" id="Resource_louqr"]
+script = ExtResource("Type")
+id = "water"
+title = "Water"
+color = Color(0.3372549, 0.5529412, 0.8, 1)
+incoming = Dictionary[String, float]({
+"electric": 2.0,
+"fire": 0.5,
+"ice": 0.5,
+"nature": 2.0,
+"water": 0.5
+})
+
+[sub_resource type="Resource" id="Resource_7y4iu"]
+script = ExtResource("Type")
+id = "nature"
+title = "Nature"
+color = Color(0.4745098, 0.67058825, 0.3764706, 1)
+incoming = Dictionary[String, float]({
+"air": 2.0,
+"earth": 0.5,
+"electric": 0.5,
+"fire": 2.0,
+"ice": 2.0,
+"nature": 0.5,
+"water": 0.5
+})
+
+[sub_resource type="Resource" id="Resource_53jtw"]
+script = ExtResource("Type")
+id = "earth"
+title = "Earth"
+color = Color(0.7411765, 0.59607846, 0.40784314, 1)
+incoming = Dictionary[String, float]({
+"electric": 0.0,
+"ice": 2.0,
+"nature": 2.0,
+"water": 2.0
+})
+
+[sub_resource type="Resource" id="Resource_2t7f5"]
+script = ExtResource("Type")
+id = "air"
+title = "Air"
+color = Color(0.64705884, 0.7137255, 0.84705883, 1)
+incoming = Dictionary[String, float]({
+"earth": 0.0,
+"electric": 2.0,
+"ice": 2.0,
+"nature": 0.5
+})
+
+[sub_resource type="Resource" id="Resource_bnxuf"]
+script = ExtResource("Type")
+id = "electric"
+title = "Electric"
+color = Color(0.9098039, 0.8117647, 0.38431373, 1)
+incoming = Dictionary[String, float]({
+"air": 0.5,
+"earth": 2.0,
+"electric": 0.5
+})
+
+[sub_resource type="Resource" id="Resource_8bmkx"]
+script = ExtResource("Type")
+id = "ice"
+title = "Ice"
+color = Color(0.5254902, 0.8, 0.8392157, 1)
+incoming = Dictionary[String, float]({
+"fire": 2.0,
+"ice": 0.5
+})
+
+[resource]
+script = ExtResource("Catalog")
+species = Array[ExtResource("Species")]([SubResource("Resource_dldxw"), SubResource("Resource_aoysg"), SubResource("Resource_k8j0i")])
+types = Array[ExtResource("Type")]([SubResource("Resource_g7rg3"), SubResource("Resource_3xee5"), SubResource("Resource_louqr"), SubResource("Resource_7y4iu"), SubResource("Resource_53jtw"), SubResource("Resource_2t7f5"), SubResource("Resource_bnxuf"), SubResource("Resource_8bmkx")])
+moves = Array[ExtResource("Move")]([SubResource("Resource_psgls"), SubResource("Resource_wkrtv"), SubResource("Resource_uicd4"), SubResource("Resource_a4i4u"), SubResource("Resource_2dejp"), SubResource("Resource_bnd8r")])

@@ -31,7 +31,7 @@ func _run() -> void:
 	assert(professor != null and sign != null)
 	_interact(story, professor)
 	assert(story.session.current.id == "offer" and not world.player.movement_enabled)
-	assert(story.view.panel.visible and story.view.options.get_child_count() == 3)
+	assert(story.view.panel.visible and story.view.options.get_child_count() == story.session.choices().size())
 	assert(root.gui_get_focus_owner() == story.view.options.get_child(0))
 	var down := InputEventAction.new()
 	down.action = &"ui_down"

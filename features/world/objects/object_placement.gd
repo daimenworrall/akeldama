@@ -6,6 +6,7 @@ const Definition = preload("res://features/world/objects/object_definition.gd")
 @export var entity_id := ""
 @export var display_name := ""
 @export var conversation_id := ""
+@export var team_id := ""
 
 func interaction_position() -> Vector2:
 	return world_origin() + definition.depth_anchor

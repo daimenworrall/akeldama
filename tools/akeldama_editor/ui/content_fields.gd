@@ -1,5 +1,5 @@
 extends RefCounted
-## Common form widgets for story resources; callbacks own mutations.
+## Shared content-authoring widgets; feature-specific callbacks own mutations.
 static func label(parent: Control, text: String) -> Label:
 	var result := Label.new()
 	result.text = text
@@ -45,3 +45,21 @@ static func button(parent: Control, title: String, callback: Callable) -> Button
 	input.pressed.connect(callback)
 	parent.add_child(input)
 	return input
+
+static func number(parent: Control, title: String, value: float, minimum: float, maximum: float, step: float, callback: Callable) -> SpinBox:
+	label(parent, title)
+	var input := SpinBox.new()
+	input.min_value = minimum
+	input.max_value = maximum
+	input.step = step
+	input.value = value
+	input.value_changed.connect(callback)
+	parent.add_child(input)
+	return input
+
+static func identity(parent: Control, id: String) -> void:
+	var input := LineEdit.new()
+	input.text = id
+	input.editable = false
+	input.tooltip_text = "Stable content ID. Names can change without breaking references."
+	parent.add_child(input)

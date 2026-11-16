@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=6 format=3]
+[ext_resource type="Script" path="res://features/teams/data/team_catalog.gd" id="1"]
+[ext_resource type="Script" path="res://features/teams/data/team_definition.gd" id="2"]
+[ext_resource type="Script" path="res://features/teams/data/team_member.gd" id="3"]
+[sub_resource type="Resource" id="Member"]
+script = ExtResource("3")
+species_id = "cindlet"
+level = 18
+moves = PackedStringArray("tackle", "ember", "bite")
+[sub_resource type="Resource" id="Professor"]
+script = ExtResource("2")
+id = "professor_test"
+title = "Professor — test team"
+members = Array[ExtResource("3")]([SubResource("Member")])
+[resource]
+script = ExtResource("1")
+teams = Array[ExtResource("2")]([SubResource("Professor")])

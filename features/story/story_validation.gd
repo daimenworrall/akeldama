@@ -34,10 +34,12 @@ static func errors(catalog: Resource, entity_ids: PackedStringArray) -> PackedSt
 				_condition(catalog, choice, result)
 				if not choice.next_node.is_empty() and conversation.find_node(choice.next_node) == null:
 					result.append("Missing dialogue destination: " + choice.next_node)
-				if choice.action not in ["", "start", "complete"]:
+				if choice.action not in ["", "start", "complete", "battle", "heal_party"]:
 					result.append("Unknown dialogue action: " + choice.action)
-				if not choice.action.is_empty() and catalog.quest(choice.action_quest) == null:
+				if choice.action in ["start", "complete"] and catalog.quest(choice.action_quest) == null:
 					result.append("Action references missing quest: " + choice.action_quest)
+				if choice.action in ["battle", "heal_party"] and not choice.next_node.is_empty():
+					result.append("Battle/party actions end the conversation; remove the outgoing link: " + node.id)
 		if entries.is_empty():
 			result.append("Conversation needs an entry node: " + conversation.id)
 		var reached := {}

@@ -9,6 +9,7 @@ var heading := Label.new()
 var identity := LineEdit.new()
 var name_input := LineEdit.new()
 var conversations := OptionButton.new()
+var team_choices := OptionButton.new()
 var details := Label.new()
 var cell_x := SpinBox.new()
 var cell_y := SpinBox.new()
@@ -30,6 +31,11 @@ func _ready() -> void:
 	add_child(name_input)
 	conversations.item_selected.connect(_assign)
 	add_child(conversations)
+	var team_label := Label.new()
+	team_label.text = "NPC battle team"
+	add_child(team_label)
+	team_choices.item_selected.connect(_assign_team)
+	add_child(team_choices)
 	var open := Button.new()
 	open.text = "Open conversation in Story"
 	open.pressed.connect(func() -> void:
@@ -65,6 +71,22 @@ func refresh() -> void:
 	identity.text = selected_id if placed != null else ""
 	name_input.editable = placed != null
 	conversations.disabled = placed == null
+	team_choices.disabled = placed == null or not _editable(placed)
+	team_choices.clear()
+	team_choices.add_item("No team")
+	team_choices.set_item_metadata(0, "")
+	var teams = ResourceLoader.load("res://features/teams/content/npc_teams.tres", "", ResourceLoader.CACHE_MODE_IGNORE)
+	for team in teams.teams:
+		team_choices.add_item(team.title)
+		var index := team_choices.item_count - 1
+		team_choices.set_item_metadata(index, team.id)
+		if placed != null and placed.team_id == team.id:
+			team_choices.select(index)
+	if placed != null and not placed.team_id.is_empty() and teams.find_team(placed.team_id) == null:
+		team_choices.add_item("Missing: " + placed.team_id)
+		var index := team_choices.item_count - 1
+		team_choices.set_item_metadata(index, placed.team_id)
+		team_choices.select(index)
 	conversations.clear()
 	conversations.add_item("No conversation")
 	conversations.set_item_metadata(0, "")
@@ -106,6 +128,15 @@ func _assign(index: int) -> void:
 		return
 	document.checkpoint()
 	placed.conversation_id = conversations.get_item_metadata(index)
+	document.dirty = true
+	changed.emit()
+
+func _assign_team(index: int) -> void:
+	var placed := selected()
+	if _refreshing or placed == null or not _editable(placed):
+		return
+	document.checkpoint()
+	placed.team_id = team_choices.get_item_metadata(index)
 	document.dirty = true
 	changed.emit()
 

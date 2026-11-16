@@ -93,9 +93,12 @@ func validation_error() -> String:
 			if terrain.grass_mask(terrain.origin + Vector2i(x, y)) in [6, 9]:
 				return "Diagonal-only grass at %s: connect or erase a corner." % (terrain.origin + Vector2i(x, y))
 	var ids := {}
+	var teams = ResourceLoader.load("res://features/teams/content/npc_teams.tres", "", ResourceLoader.CACHE_MODE_IGNORE)
 	for layer in terrain.layers:
 		if layer.kind == Layer.Kind.OBJECTS:
 			for placed in layer.objects:
+				if not placed.team_id.is_empty() and teams.find_team(placed.team_id) == null:
+					return "NPC team is missing. Save Teams before assigning it to a level."
 				if ids.has(placed.entity_id) and not placed.entity_id.is_empty():
 					return "Duplicate entity ID: " + placed.entity_id
 				ids[placed.entity_id] = true

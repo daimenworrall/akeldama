@@ -2,6 +2,9 @@ extends RefCounted
 ## Branch evaluation and quest actions, independent of dialogue presentation.
 signal updated
 signal closed
+signal action_requested(action: String)
+var party_actions_available := false
+var battle_available := false
 var journal: RefCounted
 var conversation: Resource
 var current: Resource
@@ -20,6 +23,10 @@ func choices() -> Array:
 	var result: Array = []
 	if current != null:
 		for choice in current.choices:
+			if choice.action == "battle" and not battle_available:
+				continue
+			if choice.action == "heal_party" and not party_actions_available:
+				continue
 			if choice.action == "start" and not journal.can_start(choice.action_quest):
 				continue
 			if journal.meets(choice.condition_quest, choice.condition_state):
@@ -33,6 +40,10 @@ func choose(index: int) -> bool:
 	var choice = options[index]
 	if not choice.next_node.is_empty() and conversation.find_node(choice.next_node) == null:
 		return false
+	if choice.action in ["battle", "heal_party"]:
+		close()
+		action_requested.emit(choice.action)
+		return true
 	if choice.action == "start" and not journal.start(choice.action_quest):
 		return false
 	if choice.action == "complete" and not journal.complete(choice.action_quest):
